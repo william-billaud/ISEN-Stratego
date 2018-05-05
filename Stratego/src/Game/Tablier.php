@@ -54,4 +54,9 @@ class Tablier
         }
 
     }
+
+    public function setTabValeurs(int $x,int $y,Cases $n_Cases):bool {
+        $this->tabValeurs[$x][$y]=$n_Cases;
+        return true;
+    }
 }

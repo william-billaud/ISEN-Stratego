@@ -11,10 +11,8 @@ namespace App\Game;
 
 class CasesVide extends Cases
 {
-    public function __toString()
-    {
-        return $this->getX()."vide".$this->getY();
-    }
+    protected $proprietaire =0;
+    protected $name ="vide";
 
 
 }

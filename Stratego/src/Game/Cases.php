@@ -24,6 +24,16 @@ abstract class Cases
      */
     protected $tablier;
 
+    protected $name;
+
+    /**
+     * @var int Numero indiquant le propriétaire de la case
+     * 0 => Le jeu (case vide/lacs)
+     * 1 => Le joueur bleu
+     * -1 => Le joueur rouge
+     */
+    protected $proprietaire;
+
     /**
      * Cases constructor.
      * @param $X
@@ -83,5 +93,11 @@ abstract class Cases
         $this->setX($X);
         $this->setY($Y);
     }
+
+    public function __toString()
+    {
+        return $this->getX()." ".$this->name." ".$this->getY();
+    }
+
 
 }
