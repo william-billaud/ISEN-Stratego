@@ -13,7 +13,7 @@ class CasesVide extends Cases
 {
     public function __toString()
     {
-        return "vide";
+        return $this->getX()."vide".$this->getY();
     }
 
 

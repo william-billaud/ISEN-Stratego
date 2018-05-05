@@ -24,4 +24,6 @@ yarn-error.log
 
 /composer.lock
 
--idea/*
+.idea/*
+
+/build/

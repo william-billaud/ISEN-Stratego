@@ -22,23 +22,19 @@ class Tablier
      */
     public function __construct()
     {
-        //Remplis le tableau de cases vides
-        $this->tabValeurs=array_fill(0,10,array_fill(0,10,new CasesVide($this)));
-        //Positionne les lacs
-        for($i=2;$i<4;$i++)
-        {
-            for($j=4;$j<6;$j++){
-                $this->tabValeurs[$i][$j]=new Lacs($this);
-                $this->tabValeurs[$i+4][$j]=new Lacs($this);
-            }
-        }
 
+        //Remplis le tableau de cases vides
         for($i=0;$i<10;$i++) {
             for ($j = 0; $j < 10; $j++) {
-                /**
-                 * @var Cases
-                 */
-                    $this->tabValeurs[$i][$j]->setPosition($i,$j);
+                $this->tabValeurs[$i][$j]=new CasesVide($this,$i,$j);
+            }
+        }
+        //Positionne les lacs
+        for($i=2;$i<=3;$i++)
+        {
+            for($j=4;$j<=5;$j++){
+                $this->tabValeurs[$i][$j]=new Lacs($this,$i,$j);
+                $this->tabValeurs[$i+4][$j]=new Lacs($this,$i+4,$j);
             }
         }
     }

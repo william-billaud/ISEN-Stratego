@@ -30,10 +30,9 @@ abstract class Cases
      * @param $Y
      * @param Tablier $tablier
      */
-    public function __construct(Tablier $tablier,$X=-1, $Y=-1 )
+    public function __construct(Tablier $tablier,$X, $Y )
     {
-        $this->X = $X;
-        $this->Y = $Y;
+        $this->setPosition($X,$Y);
         $this->tablier = $tablier;
     }
 
@@ -49,7 +48,7 @@ abstract class Cases
     /**
      * @param mixed $X
      */
-    public function setX($X): void
+    private function setX($X): void
     {
         if($X>=0 && $X<10)
         {
@@ -70,7 +69,7 @@ abstract class Cases
     /**
      * @param mixed $Y
      */
-    public function setY($Y): void
+    private function setY($Y): void
     {
         if($Y>=0 && $Y<10)
         {
@@ -80,7 +79,7 @@ abstract class Cases
         }
     }
 
-    public function setPosition($X,$Y){
+    protected function setPosition($X,$Y){
         $this->setX($X);
         $this->setY($Y);
     }

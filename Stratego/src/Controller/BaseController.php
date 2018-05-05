@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class BaseController extends Controller
 {
     /**
-     * @Route("/tr/{_locale}", name="base")
+     * @Route("/index/{_locale}", name="base",defaults={"_locale"="fr"})
      */
     public function index()
     {

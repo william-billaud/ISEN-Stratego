@@ -13,7 +13,7 @@ class Lacs extends Cases
 {
     public function __toString()
     {
-        return "lacs";
+        return $this->getX()."lacs".$this->getY();
     }
 
 
