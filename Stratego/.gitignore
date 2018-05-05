@@ -23,3 +23,5 @@ yarn-error.log
 ###< symfony/web-server-bundle ###
 
 /composer.lock
+
+-idea/*

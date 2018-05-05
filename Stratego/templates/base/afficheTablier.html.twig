@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Affichage du Tablier</title>
+</head>
+<body>
+
+<table>
+{% for i in 0..9 %}
+    <tr>
+        {% for j in 0..9 %}
+          <td>  {{ tablier.tabValeurs(j,i) }}</td>
+        {% endfor %}
+    </tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+</html>

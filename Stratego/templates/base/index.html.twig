@@ -11,7 +11,7 @@
 <div class="example-wrapper">
     <h1>{% trans %}Hello  %controller_name%{% endtrans %}! ✅</h1>
 
-    This friendly message is coming from:
+   {% trans %} This friendly message is coming from: {% endtrans %}
     <ul>
         <li>Your controller at <code><a href="{{ 'src/Controller/BaseController.php'|file_link(0) }}">src/Controller/BaseController.php</a></code></li>
         <li>Your template at <code><a href="{{ 'templates/base/index.html.twig'|file_link(0) }}">templates/base/index.html.twig</a></code></li>

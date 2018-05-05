@@ -1,1 +1,2 @@
 'Hello  %controller_name%': 'Bonjour %controller_name%'
+'This friendly message is coming from:': 'Ce message amical vient de : '
