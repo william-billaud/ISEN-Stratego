@@ -23,6 +23,7 @@ abstract class Cases
      * @var Tablier tableau dans laquelle est situé la cases
      */
     protected $tablier;
+    protected $value=-1;
 
     protected $name;
 
@@ -32,7 +33,7 @@ abstract class Cases
      * 1 => Le joueur bleu
      * -1 => Le joueur rouge
      */
-    protected $proprietaire;
+    protected $proprietaire =0;
 
     /**
      * Cases constructor.
@@ -98,6 +99,42 @@ abstract class Cases
     public function __toString()
     {
         return $this->getX()." ".$this->name." ".$this->getY();
+    }
+
+    /**
+     * @return int
+     */
+    public function getProprietaire(): int
+    {
+        return $this->proprietaire;
+    }
+
+    /**
+     * @param int $proprietaire
+     */
+    public function setProprietaire(int $pro): void
+    {
+        if($pro==1 || $pro ==-1){
+            $this->proprietaire=$pro;
+        }else{
+            throw new \InvalidArgumentException("Proprietaire autorisée : 1 joueur Bleu, -1 joueur Rouge");
+        }
+    }
+
+    /**
+     * @return int
+     */
+    public function getValue(): int
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param int $value
+     */
+    public function setValue(int $value): void
+    {
+        $this->value = $value;
     }
 
 

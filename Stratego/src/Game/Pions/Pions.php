@@ -11,10 +11,19 @@ namespace App\Game\Pions;
 
 use App\Game\Cases;
 use App\Game\CasesVide;
+use App\Game\Tablier;
 
 abstract class Pions extends Cases
 {
-    protected $value;
+    public function __construct(Tablier $tablier, $X, $Y,$proprio=0)
+    {
+        parent::__construct($tablier, $X, $Y);
+        if($proprio!=0)
+        {
+            $this->setProprietaire($proprio);
+        }
+    }
+
 
     /**
      * @param $x int absisse de destination
@@ -77,12 +86,6 @@ abstract class Pions extends Cases
             return false;
         }
     }
-    public function setProprietaire($pro)
-    {
-        if($pro==1 || $pro ==-1){
-            $this->proprietaire=$pro;
-        }else{
-            throw new \InvalidArgumentException("Proprietaire authorisée : 1 joueur Bleu, -1 joueur Rouge");
-        }
-    }
+
+
 }

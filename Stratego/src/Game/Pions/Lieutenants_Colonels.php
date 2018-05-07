@@ -9,7 +9,7 @@
 namespace App\Game\Pions;
 
 
-class Lieutenants_Colonels
+class Lieutenants_Colonels extends Pions
 {
 
     protected $name ="Lieutenants-Colonels";
