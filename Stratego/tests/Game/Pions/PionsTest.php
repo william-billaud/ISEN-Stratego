@@ -57,6 +57,20 @@ class PionsTest extends TestCase
         $this->assertFalse($se->DistanceDeplacementEstValide($x_a,$y_a));
     }
 
+    /**
+     * @dataProvider distanceInvalideProvider
+     * @param $x_o
+     * @param $y_o
+     * @param $x_a
+     * @param $y_a
+     * @param $tab
+     */
+    public function testDistanceInvalideSeDeplace($x_o,$y_o,$x_a,$y_a,$tab)
+    {
+        $se=new Sergent($tab,$x_o,$y_o);
+        $this->assertFalse($se->seDeplaceEn($x_a,$y_a));
+    }
+
     public function distanceInvalideProvider()
     {
         $tab=new Tablier();
@@ -138,5 +152,55 @@ class PionsTest extends TestCase
             [-2,$tab],
             [2,$tab],
         ];
+    }
+
+
+    /**
+     * @dataProvider deplacementValideProvider
+     * @param $x_o
+     * @param $y_o
+     * @param $x_a
+     * @param $y_a
+     */
+    public function testDeplacementBaseOK($x_o,$y_o,$x_a,$y_a){
+        $tab=new Tablier();
+        $se=new Sergent($tab,$x_o,$y_o);
+        $se->setProprietaire(1);
+        self::assertTrue($se->seDeplaceEn($x_a,$y_a));
+    }
+
+    public function deplacementValideProvider(){
+        return [
+            [0,0,0,1],
+            [9,9,8,9],
+            [9,8,9,9],
+            [1,0,0,0]
+        ];
+    }
+
+    /**
+     * @dataProvider deplacementLacsProvider
+     * @param $x_o
+     * @param $y_o
+     * @param $x_a
+     * @param $y_a
+     */
+    public function testDeplacementLacs($x_o,$y_o,$x_a,$y_a){
+        $tab=new Tablier();
+        $se=new Sergent($tab,$x_o,$y_o);
+        $se->setProprietaire(1);
+        self::assertFalse($se->seDeplaceEn($x_a,$y_a));
+    }
+
+    public function deplacementLacsProvider(){
+        return [
+            [1,4,2,4],
+            [2,6,2,5],
+            [4,4,3,4],
+            [4,5,3,5],
+            [5,4,6,4],
+            [5,5,6,5],
+            [8,4,7,4],
+            [8,5,7,5]];
     }
 }

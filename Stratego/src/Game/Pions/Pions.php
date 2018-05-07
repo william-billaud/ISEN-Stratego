@@ -28,7 +28,7 @@ abstract class Pions extends Cases
         }
         $cible=$this->tablier->getTabValeurs($x,$y);
         //Joueur Rouge =-1, joueur Bleu =1
-        if($cible instanceof Pions && $cible->proprietaire==-$this->proprietaire){
+        if($cible instanceof Pions && $cible->proprietaire==-$this->proprietaire && (abs($cible->proprietaire)==1)){
             $this->attaque($cible);
             return true;
         }elseif ($this->tablier->getTabValeurs($x,$y) instanceof CasesVide)
@@ -38,12 +38,26 @@ abstract class Pions extends Cases
         }
         return false;
     }
-    private function changePlacePion($x,$y){
-        $this->setPosition($x,$y);
+    public function changePlacePion($x,$y){
         $this->libereCase();
-        $this->tablier->setTabValeurs($x,$y,$this);
+        $this->setPosition($x,$y);
     }
-    public abstract function attaque($pion);
+    public function attaque( Pions $pion){
+        if($this->value>$pion->value)
+        {
+            $x=$pion->getX();
+            $y=$pion->getY();
+            $pion->libereCase();
+            $this->changePlacePion($x,$y);
+        }elseif ($this->value<$pion->value)
+        {
+            $this->libereCase();
+        }elseif ($this->value=$pion->value)
+        {
+            $this->libereCase();
+            $pion->libereCase();
+        }
+    }
     public function libereCase(){
         $this->tablier->setTabValeurs($this->getX(),$this->getY(),new CasesVide($this->tablier,$this->getX(),$this->getY()));
     }

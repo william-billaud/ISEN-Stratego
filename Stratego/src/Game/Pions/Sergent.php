@@ -14,9 +14,4 @@ class Sergent extends Pions
     protected $name ="Sergent";
     protected $value =4;
 
-
-    public function attaque($pion)
-    {
-        // TODO: Implement Attaque() method.
-    }
 }

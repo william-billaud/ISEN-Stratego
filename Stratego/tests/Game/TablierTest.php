@@ -11,6 +11,7 @@ namespace App\Tests\Game;
 
 use App\Game\CasesVide;
 use App\Game\Lacs;
+use App\Game\Pions\Sergent;
 use App\Game\Tablier;
 use PHPUnit\Framework\TestCase;
 
@@ -19,6 +20,8 @@ class TablierTest extends TestCase
     /**
      * @dataProvider invalideProvider
      * @expectedException \InvalidArgumentException
+     * @param $x
+     * @param $y
      */
     public function testInvalideArgument($x,$y)
     {
@@ -43,6 +46,8 @@ class TablierTest extends TestCase
 
     /**
      * @dataProvider valideCaseVideProvider
+     * @param $x
+     * @param $y
      */
     public function testValideArgumentCaseVide($x,$y){
         $tab=new Tablier();
@@ -63,6 +68,8 @@ class TablierTest extends TestCase
 
     /**
      * @dataProvider lacsProvider
+     * @param $x
+     * @param $y
      */
     public function testCaseLacs($x,$y){
         $tab=new Tablier();
@@ -80,6 +87,32 @@ class TablierTest extends TestCase
             [6,5],
             [7,4],
             [7,5],
+        ];
+    }
+
+
+    /**
+     * @dataProvider positionInvalideProvider
+     * @expectedException \InvalidArgumentException
+     * @param $x
+     * @param $y
+     * @param $tab
+     */
+    public function testInvalidePosition($x,$y,$tab){
+        new Sergent($tab,$x,$y);
+    }
+
+
+    public function positionInvalideProvider()
+    {
+        $tab=new Tablier();
+        return [
+            [0,10,$tab],
+            [0,-1,$tab],
+            [-1,-1,$tab],
+            [10,10,$tab],
+            [-1,2,$tab],
+            [10,2,$tab]
         ];
     }
 }

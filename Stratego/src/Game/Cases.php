@@ -42,8 +42,8 @@ abstract class Cases
      */
     public function __construct(Tablier $tablier,$X, $Y )
     {
-        $this->setPosition($X,$Y);
         $this->tablier = $tablier;
+        $this->setPosition($X,$Y);
     }
 
 
@@ -92,6 +92,7 @@ abstract class Cases
     protected function setPosition($X,$Y){
         $this->setX($X);
         $this->setY($Y);
+        $this->tablier->setTabValeurs($X,$Y,$this);
     }
 
     public function __toString()
