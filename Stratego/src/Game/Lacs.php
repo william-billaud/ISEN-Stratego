@@ -11,10 +11,8 @@ namespace App\Game;
 
 class Lacs extends Cases
 {
-    public function __toString()
-    {
-        return $this->getX()."lacs".$this->getY();
-    }
+    protected $proprietaire=0;
+    protected $name = "Lacs";
 
 
 }

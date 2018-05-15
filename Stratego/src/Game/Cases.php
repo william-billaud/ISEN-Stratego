@@ -23,6 +23,17 @@ abstract class Cases
      * @var Tablier tableau dans laquelle est situé la cases
      */
     protected $tablier;
+    protected $value=-1;
+
+    protected $name;
+
+    /**
+     * @var int Numero indiquant le propriétaire de la case
+     * 0 => Le jeu (case vide/lacs)
+     * 1 => Le joueur bleu
+     * -1 => Le joueur rouge
+     */
+    protected $proprietaire =0;
 
     /**
      * Cases constructor.
@@ -32,8 +43,8 @@ abstract class Cases
      */
     public function __construct(Tablier $tablier,$X, $Y )
     {
-        $this->setPosition($X,$Y);
         $this->tablier = $tablier;
+        $this->setPosition($X,$Y);
     }
 
 
@@ -82,6 +93,49 @@ abstract class Cases
     protected function setPosition($X,$Y){
         $this->setX($X);
         $this->setY($Y);
+        $this->tablier->setTabValeurs($X,$Y,$this);
     }
+
+    public function __toString()
+    {
+        return $this->getX()." ".$this->name." ".$this->getY();
+    }
+
+    /**
+     * @return int
+     */
+    public function getProprietaire(): int
+    {
+        return $this->proprietaire;
+    }
+
+    /**
+     * @param int $proprietaire
+     */
+    public function setProprietaire(int $pro): void
+    {
+        if($pro==1 || $pro ==-1){
+            $this->proprietaire=$pro;
+        }else{
+            throw new \InvalidArgumentException("Proprietaire autorisée : 1 joueur Bleu, -1 joueur Rouge");
+        }
+    }
+
+    /**
+     * @return int
+     */
+    public function getValue(): int
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param int $value
+     */
+    public function setValue(int $value): void
+    {
+        $this->value = $value;
+    }
+
 
 }
