@@ -134,7 +134,7 @@ class TablierTest extends TestCase
         $this->assertTrue($tab->verifieTablierValideDepart());
     }
 
-    public function creeTablierValide()
+    public static function creeTablierValide()
     {
         $tab=new Tablier();
         //placement de 8 Soldats

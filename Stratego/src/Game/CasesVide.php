@@ -13,6 +13,7 @@ class CasesVide extends Cases
 {
     protected $proprietaire =0;
     protected $name ="vide";
+    protected $value = -2;
 
 
 }

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Partie;
 use App\Game\Pions\Capitaine;
 use App\Game\Pions\Colonels;
 use App\Game\Pions\Demineurs;
@@ -15,8 +16,17 @@ use App\Game\Pions\Mines;
 use App\Game\Pions\Sergent;
 use App\Game\Pions\Soldats;
 use App\Game\Tablier;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\User\User;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Normalizer\DataUriNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class BaseController extends Controller
 {
@@ -32,9 +42,10 @@ class BaseController extends Controller
 
     /**
      * @Route("/tab",name="affiche_tab")
+     * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function afficheTablier()
+    public function afficheTablier(EntityManagerInterface $em)
     {
 
         $tab=new Tablier();
@@ -86,8 +97,29 @@ class BaseController extends Controller
         new Colonels($tab,9,3,1);
         new Colonels($tab,8,6,-1);
         new Colonels($tab,9,6,-1);
+        $p=new Partie();
+        $p->setTablier($tab);
+        $p->setDateDebut(new \DateTime());
+        $p->setEtatPartie("DEBUT");
+        $em->persist($p);
+        $em->flush();
         return $this->render('base/afficheTablier.html.twig', [
             'tablier' => $tab,
+        ]);
+
+    }
+
+
+    /**
+     * @Route("/reload",name="affiche_tab_reload")
+     * @param EntityManagerInterface $em
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function afficheTab(EntityManagerInterface $em){
+        $partie=$em->find(Partie::class,27);
+        dump($partie);
+        return $this->render('base/afficheTablier.html.twig', [
+            'tablier' => $partie->getTablier()
         ]);
     }
 }

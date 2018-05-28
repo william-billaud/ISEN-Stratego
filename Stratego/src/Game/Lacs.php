@@ -13,6 +13,7 @@ class Lacs extends Cases
 {
     protected $proprietaire=0;
     protected $name = "Lacs";
+    protected $value =-3;
 
 
 }

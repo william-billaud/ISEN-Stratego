@@ -148,4 +148,9 @@ class Tablier
         }
         return true;
     }
+
+    public function getTab()
+    {
+        return $this->tabValeurs;
+    }
 }
