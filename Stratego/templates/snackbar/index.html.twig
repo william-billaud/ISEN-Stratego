@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ controller_name }}!{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/snackbar.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <h1>Hello {{ controller_name }}! ✅</h1>
+        <input type="text" id="ws-content-to-send" value="">
+
+        <!-- Use a button to open the snackbar -->
+        <button id="ws-send-content">Send message</button>
+
+        <!-- The actual snackbar -->
+        <div id="snackbarBot">I'm the bottom message</div>
+
+        <div id="ws-content-receiver">I'm the top message</div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        var wsUrl = '{{ ws_url }}';
+    </script>
+    <script type="text/javascript" src="{{ asset('js/sf-websocket.js') }}"></script>
+{% endblock %}
