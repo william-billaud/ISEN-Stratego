@@ -25,7 +25,7 @@ abstract class Cases
     protected $tablier;
     protected $value=-1;
 
-    protected $name;
+    protected $name ="?";
 
     /**
      * @var int Numero indiquant le propriétaire de la case

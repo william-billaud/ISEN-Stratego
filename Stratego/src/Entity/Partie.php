@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Game\CasesInconnue;
 use App\Game\CasesVide;
 use App\Game\Lacs;
 use App\Game\Pions\Capitaine;
@@ -103,9 +104,6 @@ class Partie
     public function serializeTab()
     {
         $encoders = array(new XmlEncoder(), new JsonEncoder());
-        /*$normalizer = (new ObjectNormalizer())->setCircularReferenceHandler(function (Tablier $object){
-            return "nom du tablier";
-        });*/
         $normalizers = array(new ObjectNormalizer(null,null,null,new ReflectionExtractor()));
         $serializer = new Serializer($normalizers, $encoders);
         $this->setJsonTab($serializer->serialize($this->Tablier,'json'));
@@ -127,8 +125,8 @@ class Partie
                 switch ($case["value"])
                 {
                     case -1:
-                    new CasesVide($tab,$case["x"],$case["y"]);
-                    break;
+                        new CasesInconnue($tab,$case["x"],$case["y"],$case["proprietaire"]);
+                        break;
                     case -2:
                         new CasesVide($tab,$case["x"],$case["y"]);
                         break;

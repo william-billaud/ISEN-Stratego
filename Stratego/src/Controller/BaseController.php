@@ -117,7 +117,6 @@ class BaseController extends Controller
      */
     public function afficheTab(EntityManagerInterface $em){
         $partie=$em->find(Partie::class,27);
-        dump($partie);
         return $this->render('base/afficheTablier.html.twig', [
             'tablier' => $partie->getTablier()
         ]);

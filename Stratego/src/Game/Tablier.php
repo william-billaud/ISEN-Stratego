@@ -10,6 +10,12 @@ namespace App\Game;
 
 
 
+use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+
 class Tablier
 {
 
@@ -152,5 +158,20 @@ class Tablier
     public function getTab()
     {
         return $this->tabValeurs;
+    }
+    public function  getTabJoueur(int $joueur){
+        $encoders = array(new XmlEncoder(), new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer(null,null,null,new ReflectionExtractor()));
+        $serializer = new Serializer($normalizers, $encoders);
+        $res=$serializer->normalize($this->getTab());
+        foreach ($res as &$value) {
+            foreach ($value as &$case) {
+                if($case["proprietaire"]==-$joueur)
+                {
+                    $case["value"]=-1;
+                }
+            }
+        }
+        return ["tab"=>$res];
     }
 }
