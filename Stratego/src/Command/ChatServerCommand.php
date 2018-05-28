@@ -22,7 +22,7 @@ class ChatServerCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('afsy:app:chat-server')
+            ->setName('felix:app:chat-server')
             ->setDescription('Start chat server');
     }
 

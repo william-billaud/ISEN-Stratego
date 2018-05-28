@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class SnackbarController extends Controller
 {
     /**
-     * !!!! Before testing this page, launch the ChatServerCommand with this command line : " php bin/console afsy:app:chat-server " !!!!
+     * !!!! Before testing this page, launch the ChatServerCommand with this command line in new terminal : " php bin/console felix:app:chat-server " !!!!
      * @Route("/snackbar", name="snackbar")
      */
     public function index()

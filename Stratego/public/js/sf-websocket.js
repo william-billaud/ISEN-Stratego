@@ -9,7 +9,7 @@
 
     var addMessageToChannel = function (messages) {
         var obj = JSON.parse(messages);
-        if (obj.action === 'message') {
+        if (obj.action === 'message' && obj.user !== userName) {
             _receiver.innerHTML = obj.user + " : " + obj.message;
             // Add the "show" class to DIV
             _receiver.className = "showUp";
