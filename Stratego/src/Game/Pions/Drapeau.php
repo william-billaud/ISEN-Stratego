@@ -32,5 +32,10 @@ class Drapeau extends Pions
         parent::libereCase();
     }
 
+    public function DistanceDeplacementEstValide(int $x, int $y): bool
+    {
+        throw new \InvalidArgumentException("Les drapeau ne peuvent pas se déplacer");
+    }
+
 
 }

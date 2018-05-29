@@ -33,7 +33,7 @@ class ChatServerCommand extends ContainerAwareCommand
             8080,
             '127.0.0.1'
         );
-        $output->writeln("Serveur lancé sur le port 8080");
+        $output->writeln("<info> [OK] Serveur lancé sur le port 8080</info>");
         $server->run();
         $output->writeln("Fermeture du serveur");
     }

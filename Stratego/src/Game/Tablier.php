@@ -52,7 +52,7 @@ class Tablier
      * @param $y int
      * @return Cases
      */
-    public function getTabValeurs(int $x,int $y): Cases
+    public function getTabValeurs(?int $x,?int $y): Cases
     {
         if($x>=0 && $x<10 && $y>=0 && $y<10)
         {

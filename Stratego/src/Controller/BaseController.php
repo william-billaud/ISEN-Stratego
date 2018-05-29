@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Partie;
+use App\Entity\User;
 use App\Game\Pions\Capitaine;
 use App\Game\Pions\Colonels;
 use App\Game\Pions\Demineurs;
@@ -17,8 +18,10 @@ use App\Game\Pions\Sergent;
 use App\Game\Pions\Soldats;
 use App\Game\Tablier;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class BaseController extends Controller
 {
@@ -105,9 +108,11 @@ class BaseController extends Controller
     /**
      * @Route("/reload",name="affiche_tab_reload")
      * @param EntityManagerInterface $em
+     * @param UserInterface $user
      * @return \Symfony\Component\HttpFoundation\Response
+     * @Security("has_role('ROLE_USER')")
      */
-    public function afficheTab(EntityManagerInterface $em){
+    public function afficheTab(EntityManagerInterface $em,UserInterface $user=null){
         $partie=$em->find(Partie::class,27);
         return $this->render('base/afficheTablier.html.twig', [
             'tablier' => $partie->getTablier()
