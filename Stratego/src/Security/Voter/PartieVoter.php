@@ -9,13 +9,15 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class PartieVoter extends Voter
 {
-    const Joueur1='EDIT-1';
-    const Joueur2='EDIT-2';
+    const Joueur1='VIEW-1';
+    const Joueur2='VIEW-2';
+    const JoueJ1 ="PLAY-1";
+    const JoueJ2 ="PLAY-2";
     protected function supports($attribute, $subject)
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, [self::Joueur1,self::Joueur2])
+        return in_array($attribute, [self::Joueur1,self::Joueur2,self::JoueJ1,self::JoueJ2])
             && $subject instanceof Partie;
     }
 
@@ -40,6 +42,25 @@ class PartieVoter extends Voter
                 break;
             case self::Joueur2:
                 return ($subject->getJoueur2()->getId()==$user->getId())?true:false;
+                break;
+            case self::JoueJ1 :
+                if($subject->getJoueur1()->getId()==$user->getId())
+                {
+                    if($subject->getNumeroTour()%2==1)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+                break;
+            case self::JoueJ2 :
+                if($subject->getJoueur2()->getId()==$user->getId())
+                {
+                    if($subject->getNumeroTour()%2==0)
+                    {
+                        return true;
+                    }
+                }
                 break;
         }
 
