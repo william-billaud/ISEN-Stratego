@@ -8,6 +8,7 @@
     var _receiver = document.getElementById('ws-content-receiver');
 
     var addMessageToChannel = function (messages) {
+        console.log(messages);
         var obj = JSON.parse(messages);
         if (obj.action === 'message' && obj.user !== userName) {
             _receiver.innerHTML = obj.user + " : " + obj.message;
@@ -72,6 +73,8 @@
     };
 
     function myFunction() {
+        sendTextInputContent();
+        console.log("ma fonction")
         var z = document.getElementById("ws-content-to-send").value;
         // Get the snackbar DIV
         var x = document.getElementById("snackbarBot");
@@ -86,17 +89,15 @@
             setTimeout(function () {
                 x.className = x.className.replace("showBot", "");
             }, 5000);
-        }
+        }app_users
     }
 
-    _textSender.onclick = sendTextInputContent;
     _textSender.onclick = myFunction;
 
     _textInput.onkeyup = function (e) {
         // Check for Enter key
         if (e.keyCode === enterKeyCode) {
             myFunction();
-            sendTextInputContent();
             // Reset input
             _textInput.value = '';
         }
