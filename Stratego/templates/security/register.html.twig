@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+
+    <h3>Inscription</h3>
+    {{ form_start(form) }}
+
+    <div class="col s12">
+        {{ form_row(form.username) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.password.first) }}
+        {{ form_row(form.password.second) }}
+
+        <div class="row">
+            <button class="btn waves-effect waves-light" type="submit" name="action">
+                S'inscrire <i class="material-icons right">verified_user</i></button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
