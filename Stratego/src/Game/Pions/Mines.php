@@ -14,7 +14,7 @@ class Mines extends Pions
     protected $value=11;
     protected $name="Mines";
 
-    public function seDeplaceEn($x, $y): bool
+    public function seDeplaceEn(?int $x,?int $y): bool
     {
         throw new \InvalidArgumentException("Les mines ne peuvent pas se deplacer");
     }

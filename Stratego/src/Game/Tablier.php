@@ -52,11 +52,15 @@ class Tablier
      * @param $y int
      * @return Cases
      */
-    public function getTabValeurs(int $x,int $y): Cases
+    public function getTabValeurs(?int $x,?int $y): Cases
     {
+        if(is_null($x) || is_null($y))
+        {
+            throw new \InvalidArgumentException("les coordonées ne doivent pas etres nulles");
+        }
         if($x>=0 && $x<10 && $y>=0 && $y<10)
         {
-            return $this->tabValeurs[$x][$y];
+            return $this->tabValeurs[$y][$x];
         }else{
             throw new \InvalidArgumentException("les coordonnées doivent etres comprises entre 0 et 10");
         }
@@ -66,7 +70,7 @@ class Tablier
     public function setTabValeurs(int $x,int $y,Cases $n_Cases):bool {
         if($x>=0 && $x<10 && $y>=0 && $y<10)
         {
-            $this->tabValeurs[$x][$y]=$n_Cases;
+            $this->tabValeurs[$y][$x]=$n_Cases;
         }else {
             throw new \InvalidArgumentException("les coordonnées doivent etres comprises entre 0 et 10");
         }
@@ -167,9 +171,14 @@ class Tablier
         $res=$serializer->normalize($this->getTab());
         foreach ($res as &$value) {
             foreach ($value as &$case) {
-                if($case["proprietaire"]==-$joueur)
+                if($case["proprietaire"]==-$joueur && abs($joueur)==1)
                 {
                     $case["value"]=-1;
+                }else if(abs($joueur)!=1){
+                    if($case["value"]>=0)
+                    {
+                        $case["value"]=-1;
+                    }
                 }
             }
         }

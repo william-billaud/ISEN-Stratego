@@ -64,11 +64,12 @@ class PionsTest extends TestCase
      * @param $x_a
      * @param $y_a
      * @param $tab
+     * @expectedException \InvalidArgumentException
      */
     public function testDistanceInvalideSeDeplace($x_o,$y_o,$x_a,$y_a,$tab)
     {
         $se=new Sergent($tab,$x_o,$y_o);
-        $this->assertFalse($se->seDeplaceEn($x_a,$y_a));
+        $se->seDeplaceEn($x_a,$y_a);
     }
 
     public function distanceInvalideProvider()
@@ -184,6 +185,7 @@ class PionsTest extends TestCase
      * @param $y_o
      * @param $x_a
      * @param $y_a
+     * @expectedException \InvalidArgumentException
      */
     public function testDeplacementLacs($x_o,$y_o,$x_a,$y_a){
         $tab=new Tablier();

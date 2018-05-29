@@ -17,10 +17,12 @@ use App\Game\Pions\Mines;
 use App\Game\Pions\Sergent;
 use App\Game\Pions\Soldats;
 use App\Game\Tablier;
+use App\Security\Voter\PartieVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 class BaseController extends Controller
@@ -98,6 +100,8 @@ class BaseController extends Controller
         $p->setTablier($tab);
         $p->setDateDebut(new \DateTime());
         $p->setEtatPartie("DEBUT");
+        $p->setJoueur1($em->find(User::class,1));
+        $p->setJoueur2($em->find(User::class,2));
         $em->persist($p);
         $em->flush();
         return $this->render('base/afficheTablier.html.twig', [
@@ -108,15 +112,27 @@ class BaseController extends Controller
 
 
     /**
-     * @Route("/reload",name="affiche_tab_reload")
+     * @Route("/reload/{id}",name="affiche_tab_reload",requirements={"id": "\d+"}),
      * @param EntityManagerInterface $em
+     * @param UserInterface $user
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function afficheTab(EntityManagerInterface $em)
-    {
-        $partie = $em->find(Partie::class, 27);
+    public function afficheTab(EntityManagerInterface $em,UserInterface $user=null,int $id){
+        $partie=$em->find(Partie::class,$id);
+        $j1=$this->isGranted(PartieVoter::Joueur1,$partie);
+        $j2=$this->isGranted(PartieVoter::Joueur2,$partie);
+        if($j1)
+        {
+            $numero=1;
+        }elseif ($j2)
+        {
+            $numero=-1;
+        }else{
+            $numero=0;
+        }
+        dump($partie->getTablier()->getTabJoueur($numero));
         return $this->render('base/afficheTablier.html.twig', [
-            'tablier' => $partie->getTablier()
+            'tablier' => $partie->getTablier()->getTabJoueur($numero)
         ]);
     }
 }

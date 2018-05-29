@@ -29,7 +29,7 @@ class ApiController extends Controller
     }
 
     /**
-     * @Route("/joue/{id}",name="api_jou_coup",requirements={"id": "\d+"}),
+     * @Route("/joue/{id}",name="api_joue_coup",requirements={"id": "\d+"}),
      * @param EntityManagerInterface $em
      * @param int $id
      * @param Request $request
@@ -41,7 +41,7 @@ class ApiController extends Controller
         $error=null;
         try{
 
-            $partie->getTablier()->getTabValeurs($request->get("x_o",-1),$request->get("y_o",-1))->seDeplaceEn($request->get("x_a",-1),$request->get("y_a",-1));
+            $partie->getTablier()->getTabValeurs($request->get("x_o"),$request->get("y_o"))->seDeplaceEn($request->get("x_a"),$request->get("y_a"));
         }catch (\InvalidArgumentException $e)
         {
             $error=$e->getMessage();

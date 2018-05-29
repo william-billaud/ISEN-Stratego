@@ -31,3 +31,5 @@ framework:
     serializer :
         enabled : true
         enable_annotations : true
+
+    test : ~
