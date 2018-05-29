@@ -3,12 +3,10 @@
 
     var defaultChannel = 'general';
     var botName = 'ChatBot';
-    var userName = prompt('Hi! I need your name for the Chat please :)');
     var ws;
     var _receiver = document.getElementById('ws-content-receiver');
 
     var addMessageToChannel = function (messages) {
-        console.log(messages);
         var obj = JSON.parse(messages);
         if (obj.action === 'message' && obj.user !== userName) {
             _receiver.innerHTML = obj.user + " : " + obj.message;
@@ -72,9 +70,47 @@
         }));
     };
 
+    // ----------- Listners on floting buttons
+    var float_btn1 = document.getElementById("btn1");
+    float_btn1.onclick = function btnFloat() {
+        var text = document.getElementById("text1");
+        var monTexte = text.innerText || text.textContent;
+        _textInput.value = "";
+        _textInput.value = monTexte;
+        myFunction();
+        _textInput.value = "";
+    };
+    var float_btn2 = document.getElementById("btn2");
+    float_btn2.onclick = function btnFloat() {
+        var text = document.getElementById("text2");
+        var monTexte = text.innerText || text.textContent;
+        _textInput.value = "";
+        _textInput.value = monTexte;
+        myFunction();
+        _textInput.value = "";
+    };
+    var float_btn3 = document.getElementById("btn3");
+    float_btn3.onclick = function btnFloat() {
+        var text = document.getElementById("text3");
+        var monTexte = text.innerText || text.textContent;
+        _textInput.value = "";
+        _textInput.value = monTexte;
+        myFunction();
+        _textInput.value = "";
+    };
+    var float_btn4 = document.getElementById("btn4");
+    float_btn4.onclick = function btnFloat() {
+        var text = document.getElementById("text4");
+        var monTexte = text.innerText || text.textContent;
+        _textInput.value = "";
+        _textInput.value = monTexte;
+        myFunction();
+        _textInput.value = "";
+    };
+    // ----------------->
+
     function myFunction() {
         sendTextInputContent();
-        console.log("ma fonction")
         var z = document.getElementById("ws-content-to-send").value;
         // Get the snackbar DIV
         var x = document.getElementById("snackbarBot");
@@ -89,7 +125,7 @@
             setTimeout(function () {
                 x.className = x.className.replace("showBot", "");
             }, 5000);
-        }app_users
+        }
     }
 
     _textSender.onclick = myFunction;
