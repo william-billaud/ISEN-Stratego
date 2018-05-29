@@ -3,14 +3,21 @@ security:
     providers:
         doctrine :
             entity :
-                class : AppBundle:User
+                class : App:User
                 property : username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: true
+            anonymous: ~
+            form_login:
+              login_path: app_login
+              check_path: app_login
+              default_target_path: base
+            logout:
+              path: app_logout
+              target: base
 
             # activate different ways to authenticate
 
@@ -26,5 +33,5 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
     encoders:
-        AppBundle\Entity\User:
+        App\Entity\User:
             algorithm: bcrypt
