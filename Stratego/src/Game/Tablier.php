@@ -54,6 +54,10 @@ class Tablier
      */
     public function getTabValeurs(?int $x,?int $y): Cases
     {
+        if(is_null($x) || is_null($y))
+        {
+            throw new \InvalidArgumentException("les coordonées ne doivent pas etres nulles");
+        }
         if($x>=0 && $x<10 && $y>=0 && $y<10)
         {
             return $this->tabValeurs[$x][$y];

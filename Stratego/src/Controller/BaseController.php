@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Partie;
-use App\Entity\User;
 use App\Game\Pions\Capitaine;
 use App\Game\Pions\Colonels;
 use App\Game\Pions\Demineurs;
