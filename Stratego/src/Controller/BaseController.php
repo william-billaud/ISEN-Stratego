@@ -100,8 +100,9 @@ class BaseController extends Controller
         $p->setJoueur2($em->find(User::class,2));
         $em->persist($p);
         $em->flush();
+        dump($p->getJsonTab());
         return $this->render('base/afficheTablier.html.twig', [
-            'tablier' => $tab,
+            'tablier' => $p->getTablier()->getNormalizedTab(),
         ]);
 
     }

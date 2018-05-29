@@ -34,15 +34,15 @@ class Tablier
         //Remplis le tableau de cases vides
         for($i=0;$i<10;$i++) {
             for ($j = 0; $j < 10; $j++) {
-                $this->tabValeurs[$i][$j]=new CasesVide($this,$i,$j);
+                new CasesVide($this,$i,$j);
             }
         }
         //Positionne les lacs
         for($i=2;$i<=3;$i++)
         {
             for($j=4;$j<=5;$j++){
-                $this->tabValeurs[$i][$j]=new Lacs($this,$i,$j);
-                $this->tabValeurs[$i+4][$j]=new Lacs($this,$i+4,$j);
+                new Lacs($this,$i,$j);
+                new Lacs($this,$i+4,$j);
             }
         }
     }
@@ -165,10 +165,7 @@ class Tablier
         return $this->tabValeurs;
     }
     public function  getTabJoueur(int $joueur){
-        $encoders = array(new XmlEncoder(), new JsonEncoder());
-        $normalizers = array(new ObjectNormalizer(null,null,null,new ReflectionExtractor()));
-        $serializer = new Serializer($normalizers, $encoders);
-        $res=$serializer->normalize($this->getTab());
+        $res=$this->getNormalizedTab();
         foreach ($res as &$value) {
             foreach ($value as &$case) {
                 if($case["proprietaire"]==-$joueur && abs($joueur)==1)
@@ -182,6 +179,15 @@ class Tablier
                 }
             }
         }
+        return $res;
+    }
+
+    public function getNormalizedTab()
+    {
+        $encoders = array(new XmlEncoder(), new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer(null,null,null,new ReflectionExtractor()));
+        $serializer = new Serializer($normalizers, $encoders);
+        $res=$serializer->normalize($this->getTab());
         return $res;
     }
 }
