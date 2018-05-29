@@ -18,8 +18,6 @@ class SnackbarController extends Controller
         $user = $this->getUser();
         $userName = $user->getUsername();
 
-        dump($userName);
-
         return $this->render('snackbar/index.html.twig', [
             'userName' => $userName,
             'controller_name' => 'SnackbarController',
