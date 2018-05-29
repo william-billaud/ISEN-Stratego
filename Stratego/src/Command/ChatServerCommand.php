@@ -3,8 +3,9 @@
  * Created by PhpStorm.
  * User: FelixMac
  * Date: 28/05/2018
- * Time: 16:03
+ * Time: 16:03"
  */
+
 
 namespace App\Command;
 
@@ -37,6 +38,7 @@ class ChatServerCommand extends ContainerAwareCommand
         try {
             $this->getApplication()->find("server:start")->run(new ArrayInput([]), $output);
         } catch (\Exception $e) {
+            $output->writeln("<error>".$e->getMessage()."</error>");
         }
         $output->writeln("<info> [OK] Serveur lancé sur le port 8080</info>");
         $server->run();

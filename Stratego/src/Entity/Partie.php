@@ -55,6 +55,23 @@ class Partie
 
     private $Tablier;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="partiesJoueur1")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $Joueur1;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="partiesJoueur2")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $Joueur2;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $numeroTour;
+
     public function getId()
     {
         return $this->id;
@@ -197,5 +214,41 @@ class Partie
     public function setJsonTab($jsonTab): void
     {
         $this->jsonTab = $jsonTab;
+    }
+
+    public function getJoueur1(): ?User
+    {
+        return $this->Joueur1;
+    }
+
+    public function setJoueur1(?User $Joueur1): self
+    {
+        $this->Joueur1 = $Joueur1;
+
+        return $this;
+    }
+
+    public function getJoueur2(): ?User
+    {
+        return $this->Joueur2;
+    }
+
+    public function setJoueur2(?User $Joueur2): self
+    {
+        $this->Joueur2 = $Joueur2;
+
+        return $this;
+    }
+
+    public function getNumeroTour(): ?int
+    {
+        return $this->numeroTour;
+    }
+
+    public function setNumeroTour(?int $numeroTour): self
+    {
+        $this->numeroTour = $numeroTour;
+
+        return $this;
     }
 }
