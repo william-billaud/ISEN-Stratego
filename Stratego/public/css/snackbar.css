@@ -1,3 +1,10 @@
+.fixed {
+    position: fixed;
+    bottom: -20px;
+    right: 50px;
+    width: 300px;
+    background-color: white;
+}
 /* The snackbar - position it at the bottom and in the middle of the screen */
 #snackbarBot {
     visibility: hidden; /* Hidden by default. Visible on click */
