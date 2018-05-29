@@ -7,23 +7,30 @@
 {% endblock %}
 
 {% block body %}
-    <div class="example-wrapper">
-        <h1>Hello {{ controller_name }}! ✅</h1>
-        <label for="ws-content-to-send"></label><input type="text" id="ws-content-to-send" value="">
+    <div class="container">
+        <h4>Hello {{ controller_name }}! ✅</h4>
+        <div class="row">
+            <div class="input-field col s6">
+                <input placeholder="Message" id="ws-content-to-send" type="text" class="validate" value="">
+                <label for="ws-content-to-send">Send message</label>
 
-        <!-- Use a button to open the snackbar -->
-        <button id="ws-send-content">Send message</button>
-
+                <button class="btn waves-effect waves-light" id="ws-send-content">Send
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </div>
         <!-- The actual snackbar -->
         <div id="snackbarBot">I'm the bottom message</div>
 
         <div id="ws-content-receiver">I'm the top message</div>
     </div>
+
 {% endblock %}
 
 {% block javascripts %}
     <script type="text/javascript">
         var wsUrl = '{{ ws_url }}';
+        var userName = '{{ userName }}';
     </script>
     <script type="text/javascript" src="{{ asset('js/sf-websocket.js') }}"></script>
 {% endblock %}

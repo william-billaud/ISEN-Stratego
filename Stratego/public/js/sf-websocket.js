@@ -3,7 +3,6 @@
 
     var defaultChannel = 'general';
     var botName = 'ChatBot';
-    var userName = prompt('Hi! I need your name for the Chat please :)');
     var ws;
     var _receiver = document.getElementById('ws-content-receiver');
 
