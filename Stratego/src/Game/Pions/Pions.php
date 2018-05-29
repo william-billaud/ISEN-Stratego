@@ -33,7 +33,7 @@ abstract class Pions extends Cases
      */
     public function seDeplaceEn($x, $y):bool {
         if(!$this->DistanceDeplacementEstValide($x,$y)){
-            return false;
+            throw new \InvalidArgumentException("Distance de deplacement invalide");
         }
         $cible=$this->tablier->getTabValeurs($x,$y);
         //Joueur Rouge =-1, joueur Bleu =1
@@ -45,7 +45,7 @@ abstract class Pions extends Cases
             $this->changePlacePion($x,$y);
             return true;
         }
-        return false;
+        throw new \InvalidArgumentException("Deplacement invalides");
     }
     public function changePlacePion($x,$y){
         $this->libereCase();

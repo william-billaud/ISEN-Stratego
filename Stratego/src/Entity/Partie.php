@@ -118,6 +118,14 @@ class Partie
         $serializer = new Serializer($normalizers, $encoders);
         $res=$serializer->decode($this->jsonTab,'json');
         $tab=new Tablier();
+        /*
+         * Si il y a une erreur dans le JSOn crée un tableau vide
+         */
+        if(empty($res["tab"]))
+        {
+            $this->setTablier(new Tablier());
+            return;
+        }
         foreach ($res["tab"] as $value)
         {
             foreach ($value as $case)

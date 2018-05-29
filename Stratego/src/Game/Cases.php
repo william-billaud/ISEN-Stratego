@@ -86,7 +86,7 @@ abstract class Cases
         {
             $this->Y = $Y;
         }else{
-            throw new \InvalidArgumentException("Y (l'ordonné doit être compris entre 0 et 9");
+            throw new \InvalidArgumentException("Y (l'ordonne doit être compris entre 0 et 9");
         }
     }
 
@@ -110,7 +110,7 @@ abstract class Cases
     }
 
     /**
-     * @param int $proprietaire
+     * @param int $pro
      */
     public function setProprietaire(int $pro): void
     {
@@ -137,5 +137,8 @@ abstract class Cases
         $this->value = $value;
     }
 
+    public function seDeplaceEn($x, $y):bool{
+        throw new \InvalidArgumentException("les cases".$this->name." ne peuvent etre deplace");
+    }
 
 }

@@ -23,6 +23,7 @@ class Tablier
      * @var array Cases
      */
     private $tabValeurs;
+    public $estFini=0;
 
     /**
      * Tablier constructor.
@@ -172,6 +173,6 @@ class Tablier
                 }
             }
         }
-        return ["tab"=>$res];
+        return $res;
     }
 }
