@@ -5,34 +5,34 @@
     <title>{% block title %}Welcome!{% endblock %}</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css') }}">
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
+<div class="row">
+    <nav>
+        <div class="nav-wrapper #607d8b blue-grey">
+            <a href="/" class="brand-logo">Accueil</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="{{ path('snackbar') }}">Le chat</a></li>
+                <li><a href="{{ path('affiche_defie') }}">Defi Recu</a></li>
 
-<nav>
-    <div class="nav-wrapper teal">
-        <a href="/" class="brand-logo">Accueil</a>
-        <ul class="right hide-on-med-and-down">
-            <li><a href="{{ path('snackbar') }}">Le chat</a></li>
-            <li><a href="{{ path('affiche_defie') }}">Defi Recu</a></li>
-            <li><a href="{{ path('montrePartie') }}">Partie en cours</a></li>
-            {% if app.user != null %}
-            <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
-            {% endif %}
-        </ul>
-    </div>
-</nav>
+                <li><a href="{{ path('montrePartie') }}">Partie en cours</a></li>
+                {% if app.user != null %}
+                    <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+</div>
 
 <div class="container">
     {% block body %}{% endblock %}
 </div>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.dropdown-trigger');
-        var instances = M.Dropdown.init(elems, options);
-    });
 </script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 {% block javascripts %}{% endblock %}
 </body>
