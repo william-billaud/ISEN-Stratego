@@ -3,10 +3,10 @@
 {% block title %}Hello {{ controller_name }}!{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h3>{% trans %}Hello %controller_name%{% endtrans %}! ✅</h3>
+    <div class="col s12">
         <div class="row">
-            <a class="btn waves-effect waves-light" id="jouer" href="{{ path('defie_all') }}">Jouer
+            <a class="btn waves-effect waves-light col s12 #90a4ae blue-grey lighten-2" id="jouer" href="{{ path('defie_all') }}">Lancer une
+                partie
                 <i class="material-icons right">videogame_asset</i>
             </a>
         </div>
@@ -15,13 +15,14 @@
         {% for user in users %}
             <div class="row">
                 <div class="col s12">
-                    <div class='card'>
+                    <div class='card #03a9f4 light-blue'>
                         <div class="card-content">
                             <div class="left">
-                                <p>{{ user.username|e }}</p>
+                                <h6>{{ user.username|e }}</h6>
                             </div>
                             <div class="right">
-                                <a href="{{ path('lancement_partie',{'idJoueurDefie':user.id}) }}" class="btn waves-effect waves-light" id="defier" >Défier
+                                <a href="{{ path('lancement_partie',{'idJoueurDefie':user.id}) }}"
+                                   class="btn waves-effect waves-light #90a4ae blue-grey lighten-2" id="defier">Défier
                                     <i class="material-icons right">directions_walk</i>
                                 </a>
                             </div>
