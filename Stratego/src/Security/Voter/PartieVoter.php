@@ -46,7 +46,7 @@ class PartieVoter extends Voter
             case self::JoueJ1 :
                 if($subject->getJoueur1()->getId()==$user->getId())
                 {
-                    if($subject->getNumeroTour()%2==1)
+                    if($subject->getTourJoueur()==1)
                     {
                         return true;
                     }
@@ -56,7 +56,7 @@ class PartieVoter extends Voter
             case self::JoueJ2 :
                 if($subject->getJoueur2()->getId()==$user->getId())
                 {
-                    if($subject->getNumeroTour()%2==0)
+                    if($subject->getTourJoueur()==-1)
                     {
                         return true;
                     }

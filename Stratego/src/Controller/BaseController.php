@@ -30,11 +30,16 @@ class BaseController extends Controller
     /**
      * @Security("has_role('ROLE_USER')")
      * @Route("/", name="base")
+     * @param UserInterface $user
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index(UserInterface $user=null)
     {
         $userManager = $this->getDoctrine()->getRepository(User::class);
-        $users = $userManager->findAll();
+        if($user!=null)
+        {
+            $users = $userManager->findAllOthers($user->getId());
+        }
         return $this->render('base/index.html.twig', [
             'users' => $users,
             'controller_name' => 'BaseController',
@@ -43,7 +48,7 @@ class BaseController extends Controller
 
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/tab",name="affiche_tab")
+     * @Route("/tab",name="tablier_ex")
      * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -113,27 +118,42 @@ class BaseController extends Controller
 
 
     /**
-     * @Route("/reload/{id}",name="affiche_tab_reload",requirements={"id": "\d+"}),
+     * @Route("/affiche/{id}",name="affiche_tab",requirements={"id": "\d+"}),
      * @param EntityManagerInterface $em
      * @param UserInterface $user
+     * @param int $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function afficheTab(EntityManagerInterface $em,UserInterface $user=null,int $id){
         $partie=$em->find(Partie::class,$id);
-        $j1=$this->isGranted(PartieVoter::Joueur1,$partie);
-        $j2=$this->isGranted(PartieVoter::Joueur2,$partie);
-        if($j1)
+        if($this->isGranted(PartieVoter::Joueur1,$partie))
         {
             $numero=1;
-        }elseif ($j2)
+        }elseif ($this->isGranted(PartieVoter::Joueur2,$partie))
         {
             $numero=-1;
         }else{
             $numero=0;
         }
-        dump($partie->getTablier()->getTabJoueur($numero));
         return $this->render('base/afficheTablier.html.twig', [
             'tablier' => $partie->getTablier()->getTabJoueur($numero)
         ]);
+    }
+
+
+    /**
+     * @Route("/showDefie",name="affiche_defie"),
+     * @param EntityManagerInterface $em
+     * @param UserInterface $user
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showDefieEnAttente(EntityManagerInterface $em,UserInterface $user)
+    {
+        $parties =$em->getRepository(Partie::class)->findPartieJoueur($user);
+        return $this->render('base/showDefie.html.twig',
+            [
+               'parties'=>$parties
+            ]);
+
     }
 }

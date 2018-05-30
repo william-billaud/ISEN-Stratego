@@ -31,6 +31,14 @@ use Symfony\Component\Serializer\Serializer;
  */
 class Partie
 {
+
+    const ATTENTE="EN ATTENTE D ACCEPTION";
+    const INITIALISATION="POSITIONNEMENT DES PIECES";
+    const ENCOUR="PARTIE EN COURS";
+    const FINI="PARTIE FINI";
+    const DEBUT="DEBUT";
+
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -71,6 +79,11 @@ class Partie
      * @ORM\Column(type="integer", nullable=true)
      */
     private $numeroTour;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $tour_joueur;
 
     public function getId()
     {
@@ -248,6 +261,18 @@ class Partie
     public function setNumeroTour(?int $numeroTour): self
     {
         $this->numeroTour = $numeroTour;
+
+        return $this;
+    }
+
+    public function getTourJoueur(): ?int
+    {
+        return $this->tour_joueur;
+    }
+
+    public function setTourJoueur(?int $tour_joueur): self
+    {
+        $this->tour_joueur = $tour_joueur;
 
         return $this;
     }

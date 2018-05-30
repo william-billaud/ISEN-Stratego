@@ -46,7 +46,6 @@ class ApiController extends Controller
      */
     public function joueCoup(EntityManagerInterface $em,Request $request,Partie $partie)
     {
-
         $error=null;
         if($partie==null)
         {
@@ -58,29 +57,29 @@ class ApiController extends Controller
         }elseif ($this->isGranted(PartieVoter::JoueJ2,$partie))
         {
             $joueur=-1;
-
         }else{
             $joueur=0;
             $error = "vous n'avez pas le droit de jouer sur cette partie";
         }
-        if(!$partie->getTablier()->getTabValeurs($request->get("x_o"),$request->get("y_o"))->getProprietaire()==$joueur)
+        if(!$partie->getTablier()->getTabValeurs($request->get("x_o"),$request->get("y_o"))->getProprietaire()==$joueur && $joueur!=0)
         {
             $error="Cette piece n'est pas à vous";
         }else{
             try{
                 $partie->getTablier()->getTabValeurs($request->get("x_o"),$request->get("y_o"))->seDeplaceEn($request->get("x_a"),$request->get("y_a"));
                 $partie->setNumeroTour($partie->getNumeroTour()+1);
+                $partie->setTourJoueur(-$partie->getTourJoueur());
             }catch (\InvalidArgumentException $e)
             {
                 $error=$e->getMessage();
             }
             if($partie->getTablier()->estFini!=0)
             {
-                $partie->setEtatPartie("J".$partie->getTablier()->estFini." à gagné la partie");
+                $partie->setEtatPartie(Partie::FINI);
+                $partie->setTourJoueur($joueur);
             }
         }
         $em->flush();
         return $this->json(["error"=>$error,"tab"=>$partie->getTablier()->getTabJoueur($joueur)]);
     }
-
 }

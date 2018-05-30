@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Partie;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method Partie|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,22 +21,23 @@ class PartieRepository extends ServiceEntityRepository
         parent::__construct($registry, Partie::class);
     }
 
-//    /**
-//     * @return Partie[] Returns an array of Partie objects
-//     */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param UserInterface $user
+     * @return Partie[]
+     */
+    public function findPartieJoueur(UserInterface $user)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
+            ->andWhere('p.etatPartie= :val')
+            ->andWhere('p.Joueur2 =:joueur')
+            ->setParameter('val', Partie::ATTENTE)
+            ->setParameter('joueur',$user)
+            ->orderBy('p.dateDebut', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Partie

@@ -188,4 +188,18 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function isEquals(User $user):bool {
+        if($this->getId()==$user->getId())
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
+
