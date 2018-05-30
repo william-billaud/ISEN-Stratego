@@ -13,8 +13,6 @@
     <div class="nav-wrapper teal">
         <a href="/" class="brand-logo">Accueil</a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="/register">Register</a></li>
-            <li><a href="/snackbar">Le chat</a></li>
             {% if app.user != null %}
             <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
             {% endif %}
