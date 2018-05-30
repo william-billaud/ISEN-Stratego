@@ -7,7 +7,7 @@ security:
                 property : username
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            pattern: ^/(_(profiler|wdt)|css|img|js)/
             security: false
         main:
             anonymous: ~
