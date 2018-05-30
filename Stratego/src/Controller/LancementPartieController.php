@@ -59,6 +59,7 @@ class LancementPartieController extends Controller
      * @param int $idPartie
      * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Security("has_role('ROLE_USER')")
      */
     public function refuseDefie(int $idPartie,EntityManagerInterface $em)
     {
@@ -73,6 +74,7 @@ class LancementPartieController extends Controller
         return $this->redirectToRoute('base');
     }
     /**
+     * @Security("has_role('ROLE_USER')")
      * @Route("/showDefies",name="affiche_defie"),
      * @param EntityManagerInterface $em
      * @param UserInterface $user
@@ -80,7 +82,7 @@ class LancementPartieController extends Controller
      */
     public function showDefieEnAttente(EntityManagerInterface $em,UserInterface $user)
     {
-        $parties =$em->getRepository(Partie::class)->findPartieJoueur($user);
+        $parties =$em->getRepository(Partie::class)->findPartieJoueurDefie($user);
         return $this->render('lancement_partie/showDefie.html.twig',
             [
                 'parties'=>$parties
@@ -89,6 +91,7 @@ class LancementPartieController extends Controller
     }
 
     /**
+     * @Security("has_role('ROLE_USER')")
      * @Route("/defieAll",name="defie_all"))
      * @param EntityManagerInterface $em
      * @param UserInterface $user
@@ -116,5 +119,26 @@ class LancementPartieController extends Controller
         }
         $em->flush();
         return $this->redirectToRoute('base');
+    }
+
+    /**
+     * @Route("/montrePartie",name="montrePartie")
+     * @param EntityManagerInterface $em
+     * @param UserInterface $user
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Security("has_role('ROLE_USER')")
+     *
+     */
+    public function showPartie(EntityManagerInterface $em,UserInterface $user)
+    {
+        /** @var Partie[] $parties */
+        $init =$em->getRepository(Partie::class)->findPartieOuJoueurEstPresent($user,Partie::INITIALISATION);
+        $enCours =$em->getRepository(Partie::class)->findPartieOuJoueurEstPresent($user,Partie::ENCOUR);
+        return $this->render('lancement_partie/montreParties.html.twig',
+        [
+           'initilisation'=>$init,
+           'cours'=>$enCours
+        ]);
+
     }
 }

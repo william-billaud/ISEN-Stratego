@@ -36,7 +36,6 @@ class Partie
     const INITIALISATION="POSITIONNEMENT DES PIECES";
     const ENCOUR="PARTIE EN COURS";
     const FINI="PARTIE FINI";
-    const DEBUT="DEBUT";
     const DECLINE="DECLINE";
     const MANQUE_JOUEUR="EN RECHERCHE D UN JOUEUR";
 
@@ -288,4 +287,11 @@ class Partie
         $this->setTourJoueur(0);
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getJoueur1()." VS ".$this->getJoueur2()." : ".$this->getEtatPartie();
+    }
+
+
 }

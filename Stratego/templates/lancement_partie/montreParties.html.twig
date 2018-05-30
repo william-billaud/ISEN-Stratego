@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Parties en Cours</h1>
+    {%for partie in cours %}
+        <div class="row">
+            <div class="col s12">
+                <div class='card'>
+                    <div class="card-content">
+                        <div class="left">
+                            <p>{{ partie}}</p>
+                        </div>
+                        <div class="right">
+                            <a href="{{ path('affiche_tab',{'id': partie.id}) }}" class="btn waves-effect waves-light" id="defier" > Rejoindre
+                                <i class="material-icons right">directions_walk</i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+
+<h1>Parties en initalisation</h1>
+    {%for partie in initilisation %}
+        <div class="row">
+            <div class="col s12">
+                <div class='card'>
+                    <div class="card-content">
+                        <div class="left">
+                            <p>{{ partie}}</p>
+                        </div>
+                        <div class="right">
+                            <a href="{{ path('affiche_tab',{'id': partie.id}) }}" class="btn waves-effect waves-light" id="defier" >Positionner les pions
+                                <i class="material-icons right">directions_walk</i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

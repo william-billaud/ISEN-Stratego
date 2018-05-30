@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Partie;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -25,7 +26,7 @@ class PartieRepository extends ServiceEntityRepository
      * @param UserInterface $user
      * @return Partie[]
      */
-    public function findPartieJoueur(UserInterface $user)
+    public function findPartieJoueurDefie(UserInterface $user)
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.etatPartie= :val')
@@ -56,18 +57,25 @@ class PartieRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
             ;
     }
-
-
-
-    /*
-    public function findOneBySomeField($value): ?Partie
+    /**
+     * @param UserInterface $user
+     * @return Partie|null
+     */
+    public function findPartieOuJoueurEstPresent(UserInterface $user,$etat)
     {
+        $qb = $this->createQueryBuilder('p');
+        $or=$qb->expr()->orX();
+        $or->add($qb->expr()->eq('p.Joueur1',':joueur'));
+        $or->add($qb->expr()->eq('p.Joueur2',':joueur'));
+
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere($or)
+            ->andWhere('p.etatPartie= :val')
+            ->setParameter('val', $etat)
+            ->setParameter('joueur',$user)
+            ->orderBy('p.dateDebut', 'DESC')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult()
+            ;
     }
-    */
 }
