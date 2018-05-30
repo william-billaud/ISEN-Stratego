@@ -9,6 +9,14 @@
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
+{# you can read and display just one flash message type... #}
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="flash-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
 <div class="row">
     <nav>
         <div class="nav-wrapper #607d8b blue-grey">

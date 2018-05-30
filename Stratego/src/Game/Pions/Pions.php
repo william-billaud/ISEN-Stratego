@@ -66,6 +66,7 @@ abstract class Pions extends Cases
             $this->libereCase();
             $pion->libereCase();
         }
+        $this->tablier->dernierCombat=$this." VS ".$pion;
     }
     public function libereCase(){
         $this->tablier->setTabValeurs($this->getX(),$this->getY(),new CasesVide($this->tablier,$this->getX(),$this->getY()));

@@ -98,7 +98,7 @@ abstract class Cases
 
     public function __toString()
     {
-        return $this->getX()." ".$this->name." J".$this->getProprietaire()." ".$this->getY();
+        return $this->name." J".$this->getProprietaire();
     }
 
     /**

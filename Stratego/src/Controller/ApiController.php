@@ -42,7 +42,7 @@ class ApiController extends Controller
         }
 
         $arr=$partie->getTablier()->getTabJoueur($numero);
-        return $this->json(["tab"=>$arr,"peut_jouer"=>$this->isGranted(PartieVoter::PeutJouer,$partie)]);
+        return $this->json(["tab"=>$arr,"peut_jouer"=>$this->isGranted(PartieVoter::PeutJouer,$partie),"derniereAttaque"=>$partie->getTablier()->dernierCombat]);
     }
 
     /**
@@ -82,7 +82,7 @@ class ApiController extends Controller
             $partie->setTourJoueur($joueur);
         }
         $em->flush();
-        return $this->json(["error"=>$error,"tab"=>$partie->getTablier()->getTabJoueur($joueur),"peut_jouer"=>$this->isGranted(PartieVoter::PeutJouer,$partie)]);
+        return $this->json(["error"=>$error,"tab"=>$partie->getTablier()->getTabJoueur($joueur),"peut_jouer"=>$this->isGranted(PartieVoter::PeutJouer,$partie),"derniereAttaque"=>$partie->getTablier()->dernierCombat]);
     }
 
 

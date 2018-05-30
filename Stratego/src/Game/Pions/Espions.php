@@ -22,6 +22,7 @@ class Espions extends Pions
             $y=$pion->getY();
             $pion->libereCase();
             $this->changePlacePion($x,$y);
+            $this->tablier->dernierCombat=$this." VS ".$pion;
         }else{
             parent::attaque($pion);
         }

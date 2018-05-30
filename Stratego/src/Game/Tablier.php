@@ -24,6 +24,7 @@ class Tablier
      */
     private $tabValeurs;
     public $estFini=0;
+    public $dernierCombat;
 
     /**
      * Tablier constructor.

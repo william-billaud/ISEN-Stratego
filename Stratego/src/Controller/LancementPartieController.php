@@ -110,13 +110,21 @@ class LancementPartieController extends Controller
                 $partie->creePartie($user);
 
             }else{
+
                 /** @var User $user */
-                $partie->setJoueur2($user);
-                $partie->setEtatPartie(Partie::INITIALISATION);
+                if($user->isEquals($partie->getJoueur1()))
+                {
+                    $this->addFlash('notice',"Vous avez déjà lancé un defis général");
+                    return $this->redirectToRoute('base');
+                }else{
+                    /** @var User $user */
+                    $partie->setJoueur2($user);
+                    $partie->setEtatPartie(Partie::INITIALISATION);
+                }
             }
             $em->persist($partie);
         } catch (NonUniqueResultException $e) {
-            //todo problème!
+            dump($e->getMessage());
         }
         $em->flush();
         return $this->redirectToRoute('base');
