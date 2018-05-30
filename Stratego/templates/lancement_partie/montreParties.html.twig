@@ -12,7 +12,7 @@
                             <p>{{ partie}}</p>
                         </div>
                         <div class="right">
-                            <a href="{{ path('affiche_tab',{'id': partie.id}) }}" class="btn waves-effect waves-light" id="defier" > Rejoindre
+                            <a href="{{ path('play_game',{'id': partie.id}) }}" class="btn waves-effect waves-light" id="defier" > Rejoindre
                                 <i class="material-icons right">directions_walk</i>
                             </a>
                         </div>
@@ -35,7 +35,7 @@
                             <p>{{ partie}}</p>
                         </div>
                         <div class="right">
-                            <a href="{{ path('affiche_tab',{'id': partie.id}) }}" class="btn waves-effect waves-light" id="defier" >Positionner les pions
+                            <a href="{{ path('init_game',{'id': partie.id}) }}" class="btn waves-effect waves-light" id="defier" >Positionner les pions
                                 <i class="material-icons right">directions_walk</i>
                             </a>
                         </div>
