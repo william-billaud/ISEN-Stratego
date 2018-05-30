@@ -2,17 +2,17 @@
 
 {% block body %}
 
-    <h1>Parties en Cours</h1>
-    {%for partie in cours %}
-        <div class="row">
+    <h4>Parties en cours</h4>
+    {% for partie in cours %}
             <div class="col s12">
-                <div class='card'>
+                <div class='card #03a9f4 light-blue'>
                     <div class="card-content">
                         <div class="left">
-                            <p>{{ partie}}</p>
+                            <p>{{ partie }}</p>
                         </div>
                         <div class="right">
-                            <a href="{{ path('play_game',{'id': partie.id}) }}" class="btn waves-effect waves-light" id="defier" > Rejoindre
+                            <a href="{{ path('play_game',{'id': partie.id}) }}" class="btn waves-effect waves-light #90a4ae blue-grey lighten-2"
+                               id="defier"> Rejoindre
                                 <i class="material-icons right">directions_walk</i>
                             </a>
                         </div>
@@ -21,21 +21,20 @@
                     </div>
                 </div>
             </div>
-        </div>
     {% endfor %}
 
 
-<h1>Parties en initalisation</h1>
-    {%for partie in initilisation %}
-        <div class="row">
+    <h4>Parties en initalisation</h4>
+    {% for partie in initilisation %}
             <div class="col s12">
-                <div class='card'>
+                <div class='card #03a9f4 light-blue'>
                     <div class="card-content">
                         <div class="left">
-                            <p>{{ partie}}</p>
+                            <p>{{ partie }}</p>
                         </div>
                         <div class="right">
-                            <a href="{{ path('init_game',{'id': partie.id}) }}" class="btn waves-effect waves-light" id="defier" >Positionner les pions
+                            <a href="{{ path('init_game',{'id': partie.id}) }}" class="btn waves-effect waves-light #90a4ae blue-grey lighten-2"
+                               id="defier">Positionner les pions
                                 <i class="material-icons right">directions_walk</i>
                             </a>
                         </div>
@@ -44,7 +43,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     {% endfor %}
 {% endblock %}
 
