@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class SnackbarController extends Controller
 {
     /**
-     * !!!! Before testing this page, launch the ChatServerCommand with this command line in new terminal : " php bin/console f:a:c " !!!!
+     * !!!! Before testing this page, launch the ChatServerCommand with this command line in new terminal : " php bin/console f:a:c:m " !!!!
      * @Security("has_role('ROLE_USER')")
      * @Route("/snackbar", name="snackbar")
      */
