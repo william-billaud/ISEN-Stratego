@@ -8,6 +8,7 @@ use App\Security\Voter\PartieVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -20,7 +21,7 @@ class LancementPartieController extends Controller
      * @param UserInterface $user
      * @param int $idJoueurDefie
      * @param EntityManagerInterface $em
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function index(UserInterface $user, int $idJoueurDefie, EntityManagerInterface $em)
     {
@@ -39,7 +40,7 @@ class LancementPartieController extends Controller
      * @Security("has_role('ROLE_USER')")
      * @param int $idPartie
      * @param EntityManagerInterface $em
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function accepteDefie(int $idPartie, EntityManagerInterface $em)
     {
@@ -78,7 +79,7 @@ class LancementPartieController extends Controller
      * @Route("/showDefies",name="affiche_defie"),
      * @param EntityManagerInterface $em
      * @param UserInterface $user
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function showDefieEnAttente(EntityManagerInterface $em,UserInterface $user)
     {
@@ -125,11 +126,11 @@ class LancementPartieController extends Controller
      * @Route("/montrePartie",name="montrePartie")
      * @param EntityManagerInterface $em
      * @param UserInterface $user
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      * @Security("has_role('ROLE_USER')")
      *
      */
-    public function showPartie(EntityManagerInterface $em,UserInterface $user)
+    public function showPartie(EntityManagerInterface $em,UserInterface $user=null)
     {
         /** @var Partie[] $parties */
         $init =$em->getRepository(Partie::class)->findPartieOuJoueurEstPresent($user,Partie::INITIALISATION);
