@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/pions.css') }}">
+{% endblock %}
+
+
+{% block title %}Partie en cours{% endblock %}
+
+{% block body %}
+    <div id="board">
+    </div>
+    <button id="button">Hello</button>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/game.js') }}"></script>
+{% endblock %}

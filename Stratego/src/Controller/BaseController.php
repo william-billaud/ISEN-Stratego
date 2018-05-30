@@ -54,7 +54,6 @@ class BaseController extends Controller
      */
     public function afficheTablier(EntityManagerInterface $em)
     {
-
         $tab = new Tablier();
         //placement de 8 Soldats
         for ($i = 0; $i < 8; $i++) {
@@ -113,9 +112,7 @@ class BaseController extends Controller
         return $this->render('base/afficheTablier.html.twig', [
             'tablier' => $p->getTablier()->getNormalizedTab(),
         ]);
-
     }
-
 
     /**
      * @Route("/affiche/{id}",name="affiche_tab",requirements={"id": "\d+"}),
