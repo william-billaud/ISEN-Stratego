@@ -23,9 +23,7 @@ class GameController extends Controller
      */
     public function gameAction(int $id)
     {
-        $response =new Response();
-        $response->headers->set("Access-Control-Allow-Origin","*");
-        return $this->render('game/index.html.twig',[],$response);
+        return $this->render('game/index.html.twig');
     }
 
     /**

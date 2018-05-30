@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class ApiController
@@ -24,9 +25,13 @@ class ApiController extends Controller
      * @param int $id identifiant de la partie
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function index(EntityManagerInterface $em,int $id)
+    public function index(EntityManagerInterface $em, int $id)
     {
         $partie=$em->find(Partie::class,$id);
+        if($partie==null)
+        {
+            return $this->json(["error"=>"la partie n'existe pas"]);
+        }
         $numero=0;
         if($this->isGranted(PartieVoter::Joueur1,$partie))
         {
@@ -37,7 +42,7 @@ class ApiController extends Controller
         }
 
         $arr=$partie->getTablier()->getTabJoueur($numero);
-        return $this->json(["tab"=>$arr,"peut_jouer"=>$this->isGranted(PartieVoter::PeutJouer,$partie)],200,["Access-Control-Allow-Origin"=>"*"]);
+        return $this->json(["tab"=>$arr,"peut_jouer"=>$this->isGranted(PartieVoter::PeutJouer,$partie)]);
     }
 
     /**
@@ -52,7 +57,7 @@ class ApiController extends Controller
         $error=null;
         if($partie==null)
         {
-            return $this->json(["error"=>"la partie n'existe pas"],200,["Access-Control-Allow-Origin"=>"*"]);
+            return $this->json(["error"=>"la partie n'existe pas"]);
         }
         $joueur=$partie->getTourJoueur();
         try{
@@ -77,7 +82,7 @@ class ApiController extends Controller
             $partie->setTourJoueur($joueur);
         }
         $em->flush();
-        return $this->json(["error"=>$error,"tab"=>$partie->getTablier()->getTabJoueur($joueur),"peut_jouer"=>$this->isGranted(PartieVoter::PeutJouer,$partie)],200,["Access-Control-Allow-Origin"=>"*"]);
+        return $this->json(["error"=>$error,"tab"=>$partie->getTablier()->getTabJoueur($joueur),"peut_jouer"=>$this->isGranted(PartieVoter::PeutJouer,$partie)]);
     }
 
 

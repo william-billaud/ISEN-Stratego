@@ -2,8 +2,8 @@ $(document).ready(function () {
     console.log("Ajax");
 
     $.ajax({
-        url: 'http://localhost:8000/api/getTab/19',
-        data: {
+        url: '/api/getTab/1',
+            data: {
             format: 'json'
         },
         crossDomain: true,
