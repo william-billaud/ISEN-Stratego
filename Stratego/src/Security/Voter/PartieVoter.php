@@ -44,7 +44,7 @@ class PartieVoter extends Voter
                 return ($subject->getJoueur2()->getId()==$user->getId())?true:false;
                 break;
             case self::JoueJ1 :
-                if($subject->getJoueur1()->getId()==$user->getId())
+                if($subject->getJoueur1()->getId()==$user->getId() && Partie::ENCOUR==$subject->getEtatPartie())
                 {
                     if($subject->getTourJoueur()==1)
                     {
@@ -54,7 +54,7 @@ class PartieVoter extends Voter
                 return false;
                 break;
             case self::JoueJ2 :
-                if($subject->getJoueur2()->getId()==$user->getId())
+                if($subject->getJoueur2()->getId()==$user->getId()&& Partie::ENCOUR==$subject->getEtatPartie())
                 {
                     if($subject->getTourJoueur()==-1)
                     {
