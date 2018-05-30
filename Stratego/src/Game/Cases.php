@@ -137,7 +137,7 @@ abstract class Cases
         $this->value = $value;
     }
 
-    public function seDeplaceEn($x, $y):bool{
+    public function seDeplaceEn(?int $x,?int $y):bool{
         throw new \InvalidArgumentException("les cases".$this->name." ne peuvent etre deplace");
     }
 

@@ -42,10 +42,10 @@
 <body>
 
 <table>
-{% for i in 0..9 %}
+{% for lines in tablier %}
     <tr>
-        {% for j in 0..9 %}
-          <td>  {{ tablier.tabValeurs(j,i) }}</td>
+        {% for case in  lines %}
+          <td>  {{ case.value }}</td>
         {% endfor %}
     </tr>
 

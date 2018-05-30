@@ -31,6 +31,14 @@ use Symfony\Component\Serializer\Serializer;
  */
 class Partie
 {
+
+    const ATTENTE="EN ATTENTE D ACCEPTION";
+    const INITIALISATION="POSITIONNEMENT DES PIECES";
+    const ENCOUR="PARTIE EN COURS";
+    const FINI="PARTIE FINI";
+    const DEBUT="DEBUT";
+
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -54,6 +62,28 @@ class Partie
     private $jsonTab;
 
     private $Tablier;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="partiesJoueur1")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $Joueur1;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="partiesJoueur2")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $Joueur2;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $numeroTour;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $tour_joueur;
 
     public function getId()
     {
@@ -197,5 +227,53 @@ class Partie
     public function setJsonTab($jsonTab): void
     {
         $this->jsonTab = $jsonTab;
+    }
+
+    public function getJoueur1(): ?User
+    {
+        return $this->Joueur1;
+    }
+
+    public function setJoueur1(?User $Joueur1): self
+    {
+        $this->Joueur1 = $Joueur1;
+
+        return $this;
+    }
+
+    public function getJoueur2(): ?User
+    {
+        return $this->Joueur2;
+    }
+
+    public function setJoueur2(?User $Joueur2): self
+    {
+        $this->Joueur2 = $Joueur2;
+
+        return $this;
+    }
+
+    public function getNumeroTour(): ?int
+    {
+        return $this->numeroTour;
+    }
+
+    public function setNumeroTour(?int $numeroTour): self
+    {
+        $this->numeroTour = $numeroTour;
+
+        return $this;
+    }
+
+    public function getTourJoueur(): ?int
+    {
+        return $this->tour_joueur;
+    }
+
+    public function setTourJoueur(?int $tour_joueur): self
+    {
+        $this->tour_joueur = $tour_joueur;
+
+        return $this;
     }
 }

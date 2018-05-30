@@ -26,7 +26,7 @@ class Soldats extends Pions
         }
     }
 
-    public function seDeplaceEn($x, $y):bool {
+    public function seDeplaceEn(?int $x,?int  $y):bool {
         if(!$this->DistanceDeplacementEstValide($x,$y)){
             return false;
         }
@@ -58,6 +58,4 @@ class Soldats extends Pions
         }
         return false;
     }
-
-
 }

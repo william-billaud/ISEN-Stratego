@@ -31,7 +31,7 @@ abstract class Pions extends Cases
      * @return bool
      * true si le pions peut essayer de se déplacer sur cette case
      */
-    public function seDeplaceEn($x, $y):bool {
+    public function seDeplaceEn(?int $x,?int $y):bool {
         if(!$this->DistanceDeplacementEstValide($x,$y)){
             throw new \InvalidArgumentException("Distance de deplacement invalide");
         }

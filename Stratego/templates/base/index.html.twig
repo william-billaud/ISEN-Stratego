@@ -3,18 +3,35 @@
 {% block title %}Hello {{ controller_name }}!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container">
+        <h3>{% trans %}Hello %controller_name%{% endtrans %}! ✅</h3>
+        <div class="row">
+            <button class="btn waves-effect waves-light" id="jouer">Jouer
+                <i class="material-icons right">videogame_asset</i>
+            </button>
+        </div>
 
-<div class="example-wrapper">
-    <h1>{% trans %}Hello  %controller_name%{% endtrans %}! ✅</h1>
+        <h4>Users : </h4>
+        {% for user in users %}
+            <div class="row">
+                <div class="col s12">
+                    <div class='card'>
+                        <div class="card-content">
+                            <div class="left">
+                                <p>{{ user.username|e }}</p>
+                            </div>
+                            <div class="right">
+                                <a href="{{ path('lancement_partie',{'idJoueurDefie':user.id}) }}" class="btn waves-effect waves-light" id="defier" >Défier
+                                    <i class="material-icons right">directions_walk</i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-action">
 
-   {% trans %} This friendly message is coming from: {% endtrans %}
-    <ul>
-        <li>Your controller at <code><a href="{{ 'src/Controller/BaseController.php'|file_link(0) }}">src/Controller/BaseController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'templates/base/index.html.twig'|file_link(0) }}">templates/base/index.html.twig</a></code></li>
-    </ul>
-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

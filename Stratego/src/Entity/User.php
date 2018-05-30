@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -37,6 +39,22 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private $email;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Partie", mappedBy="Joueur1")
+     */
+    private $partiesJoueur1;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Partie", mappedBy="Joueur2")
+     */
+    private $partiesJoueur2;
+
+    public function __construct()
+    {
+        $this->partiesJoueur1 = new ArrayCollection();
+        $this->partiesJoueur2 = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -108,4 +126,80 @@ class User implements UserInterface
         return null;
         // TODO: Implement getSalt() method.
     }
+
+    /**
+     * @return Collection|Partie[]
+     */
+    public function getPartiesJoueur1(): Collection
+    {
+        return $this->partiesJoueur1;
+    }
+
+    public function addPartiesJoueur1(Partie $partiesJoueur1): self
+    {
+        if (!$this->partiesJoueur1->contains($partiesJoueur1)) {
+            $this->partiesJoueur1[] = $partiesJoueur1;
+            $partiesJoueur1->setJoueur1($this);
+        }
+
+        return $this;
+    }
+
+    public function removePartiesJoueur1(Partie $partiesJoueur1): self
+    {
+        if ($this->partiesJoueur1->contains($partiesJoueur1)) {
+            $this->partiesJoueur1->removeElement($partiesJoueur1);
+            // set the owning side to null (unless already changed)
+            if ($partiesJoueur1->getJoueur1() === $this) {
+                $partiesJoueur1->setJoueur1(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Partie[]
+     */
+    public function getPartiesJoueur2(): Collection
+    {
+        return $this->partiesJoueur2;
+    }
+
+    public function addPartiesJoueur2(Partie $partiesJoueur2): self
+    {
+        if (!$this->partiesJoueur2->contains($partiesJoueur2)) {
+            $this->partiesJoueur2[] = $partiesJoueur2;
+            $partiesJoueur2->setJoueur2($this);
+        }
+
+        return $this;
+    }
+
+    public function removePartiesJoueur2(Partie $partiesJoueur2): self
+    {
+        if ($this->partiesJoueur2->contains($partiesJoueur2)) {
+            $this->partiesJoueur2->removeElement($partiesJoueur2);
+            // set the owning side to null (unless already changed)
+            if ($partiesJoueur2->getJoueur2() === $this) {
+                $partiesJoueur2->setJoueur2(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function isEquals(User $user):bool {
+        if($this->getId()==$user->getId())
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
+

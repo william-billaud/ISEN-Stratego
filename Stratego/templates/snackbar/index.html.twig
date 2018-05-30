@@ -7,23 +7,50 @@
 {% endblock %}
 
 {% block body %}
-    <div class="example-wrapper">
-        <h1>Hello {{ controller_name }}! ✅</h1>
-        <input type="text" id="ws-content-to-send" value="">
-
-        <!-- Use a button to open the snackbar -->
-        <button id="ws-send-content">Send message</button>
-
-        <!-- The actual snackbar -->
-        <div id="snackbarBot">I'm the bottom message</div>
-
-        <div id="ws-content-receiver">I'm the top message</div>
+    <div class="fixed">
+        <div class="col s6">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input placeholder="Message" id="ws-content-to-send" type="text" class="validate" value="">
+                    <label for="ws-content-to-send">Send message</label>
+                </div>
+                <div class="input-field col s1">
+                    <button class="btn waves-effect waves-light grey" id="ws-send-content">
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="fixed-action-btn click-to-toggle">
+        <a class="btn-floating btn-large grey">
+            <i class="large material-icons">mode_edit</i>
+        </a>
+        <ul>
+            <li><a id="btn1" class="btn-floating grey"><i class="material-icons">chat_bubble</i></a><i id="text1">Ahahahah</i></li>
+            <li><a id="btn2" class="btn-floating grey"><i class="material-icons">chat_bubble</i></a><i id="text2">Joli coup !</i></li>
+            <li><a id="btn3" class="btn-floating grey"><i class="material-icons">chat_bubble</i></a><i id="text3">Dépéche toi !</i></li>
+            <li><a id="btn4" class="btn-floating grey"><i class="material-icons">chat_bubble</i></a><i id="text4">Bonjour</i></li>
+        </ul>
+    </div>
+    <!-- The actual snackbar -->
+    <div id="snackbarBot">I'm the bottom message</div>
+
+    <div id="ws-content-receiver">I'm the top message</div>
 {% endblock %}
 
 {% block javascripts %}
     <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.fixed-action-btn');
+            var instances = M.FloatingActionButton.init(elems, {
+                hoverEnabled: false
+            });
+        });
+
         var wsUrl = '{{ ws_url }}';
+        var userName = '{{ userName }}';
     </script>
     <script type="text/javascript" src="{{ asset('js/sf-websocket.js') }}"></script>
 {% endblock %}
