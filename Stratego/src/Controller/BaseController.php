@@ -139,21 +139,4 @@ class BaseController extends Controller
             'tablier' => $partie->getTablier()->getTabJoueur($numero)
         ]);
     }
-
-
-    /**
-     * @Route("/showDefie",name="affiche_defie"),
-     * @param EntityManagerInterface $em
-     * @param UserInterface $user
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function showDefieEnAttente(EntityManagerInterface $em,UserInterface $user)
-    {
-        $parties =$em->getRepository(Partie::class)->findPartieJoueur($user);
-        return $this->render('base/showDefie.html.twig',
-            [
-               'parties'=>$parties
-            ]);
-
-    }
 }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Partie;
 use App\Entity\User;
+use App\Security\Voter\PartieVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,13 +17,12 @@ class LancementPartieController extends Controller
     /**
      * @Route("/lancement/partie/{idJoueurDefie}", name="lancement_partie")
      * @Security("has_role('ROLE_USER')")
-     * @param Request $request
      * @param UserInterface $user
      * @param int $idJoueurDefie
      * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(Request $request,UserInterface $user,int $idJoueurDefie,EntityManagerInterface $em)
+    public function index(UserInterface $user, int $idJoueurDefie, EntityManagerInterface $em)
     {
         $userDefie=$em->find(User::class,$idJoueurDefie);
         $partie=new Partie();
@@ -34,28 +34,63 @@ class LancementPartieController extends Controller
         $partie->setDateDebut(new \DateTime());
         $em->persist($partie);
         $em->flush();
-        return $this->render('lancement_partie/index.html.twig', [
-            'controller_name' => 'LancementPartieController',
-        ]);
+        return $this->redirectToRoute('base');
     }
 
     /**
-     * @Route("/accepteDefie/{idPartie}",name="accepteDefie",requirements={"id": "\d+"})
+     * @Route("/accepteDefie/{idPartie}",name="accepteDefie",requirements={"idPartie": "\d+"})
      * @Security("has_role('ROLE_USER')")
-     * @param Request $request
-     * @param UserInterface $user
      * @param int $idPartie
+     * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function accepteDefie(Request $request,UserInterface $user,int $idPartie,EntityManagerInterface $em)
+    public function accepteDefie(int $idPartie, EntityManagerInterface $em)
     {
         $partie=$em->find(Partie::class,$idPartie);
         /** @var User $user */
-        if($user->isEquals($partie->getJoueur2()))
+        if($this->isGranted(PartieVoter::Joueur2,$partie))
         {
             $partie->setEtatPartie(Partie::INITIALISATION);
         }
+        $em->flush();
 
         return $this->redirectToRoute('affiche_tab',["id"=>$partie->getId()]);
     }
+
+    /**
+     * @Route("/refuseDefie/{idPartie}",name="refuseDefie",requirements={"idPartie": "\d+"})
+     * @param Request $request
+     * @param UserInterface $user
+     * @param int $idPartie
+     * @param EntityManagerInterface $em
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function refuseDefie(int $idPartie,EntityManagerInterface $em)
+    {
+        $partie=$em->find(Partie::class,$idPartie);
+        /** @var User $user */
+        if($this->isGranted(PartieVoter::Joueur2,$partie))
+        {
+            $partie->setEtatPartie(Partie::DECLINE);
+        }
+        $em->flush();
+
+        return $this->redirectToRoute('base');
+    }
+    /**
+     * @Route("/showDefies",name="affiche_defie"),
+     * @param EntityManagerInterface $em
+     * @param UserInterface $user
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showDefieEnAttente(EntityManagerInterface $em,UserInterface $user)
+    {
+        $parties =$em->getRepository(Partie::class)->findPartieJoueur($user);
+        return $this->render('lancement_partie/showDefie.html.twig',
+            [
+                'parties'=>$parties
+            ]);
+
+    }
+
 }

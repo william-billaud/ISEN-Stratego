@@ -37,6 +37,7 @@ class Partie
     const ENCOUR="PARTIE EN COURS";
     const FINI="PARTIE FINI";
     const DEBUT="DEBUT";
+    const DECLINE="DECLINE";
 
 
     /**

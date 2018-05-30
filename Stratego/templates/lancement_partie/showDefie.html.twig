@@ -12,7 +12,11 @@
                             <p>{{ defie.joueur1.username|e }}</p>
                         </div>
                         <div class="right">
-                            <a href="{{ path('accepteDefie',{'idPartie':defie.id}) }}" class="btn waves-effect waves-light" id="defier" >Défier
+                            <a href="{{ path('accepteDefie',{'idPartie':defie.id}) }}" class="btn waves-effect waves-light" id="accepter" >Accepter
+                                <i class="material-icons right">directions_walk</i>
+                            </a>
+
+                            <a href="{{ path('refuseDefie',{'idPartie':defie.id}) }}" class="btn waves-effect wawes-dark" id="refuser" >Refuser
                                 <i class="material-icons right">directions_walk</i>
                             </a>
                         </div>
