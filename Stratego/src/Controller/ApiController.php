@@ -37,7 +37,7 @@ class ApiController extends Controller
         }
 
         $arr=$partie->getTablier()->getTabJoueur($numero);
-        return $this->json(["tab"=>$arr,"peut_jouer"=>$this->isGranted(PartieVoter::PeutJouer,$partie)]);
+        return $this->json(["tab"=>$arr,"peut_jouer"=>$this->isGranted(PartieVoter::PeutJouer,$partie)],200,["Access-Control-Allow-Origin"=>"*"]);
     }
 
     /**
@@ -52,7 +52,7 @@ class ApiController extends Controller
         $error=null;
         if($partie==null)
         {
-            return $this->json(["error"=>"la partie n'existe pas"]);
+            return $this->json(["error"=>"la partie n'existe pas"],200,["Access-Control-Allow-Origin"=>"*"]);
         }
         $joueur=$partie->getTourJoueur();
         try{
@@ -77,7 +77,7 @@ class ApiController extends Controller
             $partie->setTourJoueur($joueur);
         }
         $em->flush();
-        return $this->json(["error"=>$error,"tab"=>$partie->getTablier()->getTabJoueur($joueur),"peut_jouer"=>$this->isGranted(PartieVoter::PeutJouer,$partie)]);
+        return $this->json(["error"=>$error,"tab"=>$partie->getTablier()->getTabJoueur($joueur),"peut_jouer"=>$this->isGranted(PartieVoter::PeutJouer,$partie)],200,["Access-Control-Allow-Origin"=>"*"]);
     }
 
 
@@ -91,6 +91,7 @@ class ApiController extends Controller
     {
         $joueur=$partie->getTourJoueur();
         $validite=true;
+        $error="";
         try{
             if($this->isGranted(PartieVoter::PeutJouer,$partie))
             {
@@ -120,6 +121,6 @@ class ApiController extends Controller
             $validite =false;
             $error=$e->getMessage();
         }
-        return $this->json(["error"=>$error,"valide"=>$validite]);
+        return $this->json(["error"=>$error,"valide"=>$validite],200,["Access-Control-Allow-Origin"=>"*"]);
     }
 }

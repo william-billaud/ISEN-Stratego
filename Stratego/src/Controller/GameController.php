@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -22,7 +23,9 @@ class GameController extends Controller
      */
     public function gameAction(int $id)
     {
-        return $this->render('game/index.html.twig');
+        $response =new Response();
+        $response->headers->set("Access-Control-Allow-Origin","*");
+        return $this->render('game/index.html.twig',[],$response);
     }
 
     /**

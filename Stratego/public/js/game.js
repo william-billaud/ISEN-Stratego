@@ -2,10 +2,11 @@ $(document).ready(function () {
     console.log("Ajax");
 
     $.ajax({
-        url: 'http://localhost:8000/api/getTab/1',
+        url: 'http://localhost:8000/api/getTab/19',
         data: {
             format: 'json'
         },
+        crossDomain: true,
         error: function () {
             console.log("error");
         },
