@@ -9,7 +9,7 @@
                 <div class='card'>
                     <div class="card-content">
                         <div class="left">
-                            <p>{{ defie.joueur1.username|e }}</p>
+                            <p><h7>{{ defie.joueur1.username|e }}</h7>    En attente : {{ defie.dateDebut|date('d-m-y H:i') }}</p>
                         </div>
                         <div class="right">
                             <a href="{{ path('accepteDefie',{'idPartie':defie.id}) }}" class="btn waves-effect waves-light" id="accepter" >Accepter
@@ -29,7 +29,6 @@
             </div>
         </div>
     {% endfor %}
-    </div>
 
 {% endblock %}
 

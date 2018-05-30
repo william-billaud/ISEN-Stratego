@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Partie;
+use App\Game\CasesVide;
+use App\Game\Pions\Pions;
 use App\Security\Voter\PartieVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,32 +54,72 @@ class ApiController extends Controller
         {
             return $this->json(["error"=>"la partie n'existe pas"]);
         }
-        if($this->isGranted(PartieVoter::PeutJouer,$partie))
+        $joueur=$partie->getTourJoueur();
+        try{
+            if($this->isGranted(PartieVoter::PeutJouer,$partie))
+            {
+                throw new \InvalidArgumentException("Ce n'est pas votre tour de jouer");
+            }
+            if(!$partie->getTablier()->getTabValeurs($request->get("x_o"),$request->get("y_o"))->getProprietaire()==$partie->getTourJoueur() && $joueur!=0)
+            {
+                throw  new \InvalidArgumentException("Cette piece n'est pas à vous");
+            }
+
+            $partie->getTablier()->getTabValeurs($request->get("x_o"),$request->get("y_o"))->seDeplaceEn($request->get("x_a"),$request->get("y_a"));
+            $partie->setNumeroTour($partie->getNumeroTour()+1);
+            $partie->setTourJoueur(-$partie->getTourJoueur());
+        }catch (\InvalidArgumentException $e)
         {
-            $joueur=1;
-        }else{
-            $joueur=0;
-            $error = "vous n'avez pas le droit de jouer sur cette partie";
+            $error=$e->getMessage();
         }
-        if(!$partie->getTablier()->getTabValeurs($request->get("x_o"),$request->get("y_o"))->getProprietaire()==$partie->getTourJoueur() && $joueur!=0)
-        {
-            $error="Cette piece n'est pas à vous";
-        }else{
-            try{
-                $partie->getTablier()->getTabValeurs($request->get("x_o"),$request->get("y_o"))->seDeplaceEn($request->get("x_a"),$request->get("y_a"));
-                $partie->setNumeroTour($partie->getNumeroTour()+1);
-                $partie->setTourJoueur(-$partie->getTourJoueur());
-            }catch (\InvalidArgumentException $e)
-            {
-                $error=$e->getMessage();
-            }
-            if($partie->getTablier()->estFini!=0)
-            {
-                $partie->setEtatPartie(Partie::FINI);
-                $partie->setTourJoueur($joueur);
-            }
+        if($partie->getTablier()->estFini!=0) {
+            $partie->setEtatPartie(Partie::FINI);
+            $partie->setTourJoueur($joueur);
         }
         $em->flush();
         return $this->json(["error"=>$error,"tab"=>$partie->getTablier()->getTabJoueur($joueur),"peut_jouer"=>$this->isGranted(PartieVoter::PeutJouer,$partie)]);
+    }
+
+
+    /**
+     * @Route("/coupValide/{id}",name="verifie_coup_valide",requirements={"id": "\d+"}),
+     * @param Request $request
+     * @param Partie|null $partie
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function verifieCoupValide(Request $request,Partie $partie=null)
+    {
+        $joueur=$partie->getTourJoueur();
+        $validite=true;
+        try{
+            if($this->isGranted(PartieVoter::PeutJouer,$partie))
+            {
+                throw new \InvalidArgumentException("Ce n'est pas votre tour de jouer");
+            }
+            if(!$partie->getTablier()->getTabValeurs($request->get("x_o"),$request->get("y_o"))->getProprietaire()==$joueur || $joueur==0)
+            {
+                throw  new \InvalidArgumentException("Cette piece n'est pas à vous");
+            }
+            /** @var Pions $pion */
+            $pion=$partie->getTablier()->getTabValeurs($request->get("x_o"),$request->get("y_o"));
+            if(!($pion instanceof Pions))
+            {
+                throw new \InvalidArgumentException("Ceci n'est pas un pions");
+            }
+            if(!$pion->DistanceDeplacementEstValide($request->get("x_a"),$request->get("y_a"))){
+                throw new \InvalidArgumentException("Distance de deplacement invalide");
+            }
+            $cible=$partie->getTablier()->getTabValeurs($request->get("x_a"),$request->get("y_a"));
+            //Joueur Rouge =-1, joueur Bleu =1
+            if(!($cible instanceof Pions || $cible instanceof CasesVide) || $cible->getProprietaire()==$pion->getProprietaire() )
+            {
+                throw new \InvalidArgumentException("La destination n'est pas un cible valide");
+            }
+        }catch (\InvalidArgumentException $e)
+        {
+            $validite =false;
+            $error=$e->getMessage();
+        }
+        return $this->json(["error"=>$error,"valide"=>$validite]);
     }
 }
