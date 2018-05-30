@@ -33,8 +33,9 @@ class ApiController extends Controller
         {
             $numero=-1;
         }
+
         $arr=$partie->getTablier()->getTabJoueur($numero);
-        return $this->json(["tab"=>$arr]);
+        return $this->json(["tab"=>$arr,"peut_jouer"=>$this->isGranted(PartieVoter::PeutJouer,$partie)]);
     }
 
     /**
@@ -51,17 +52,14 @@ class ApiController extends Controller
         {
             return $this->json(["error"=>"la partie n'existe pas"]);
         }
-        if($this->isGranted(PartieVoter::JoueJ1,$partie))
+        if($this->isGranted(PartieVoter::PeutJouer,$partie))
         {
             $joueur=1;
-        }elseif ($this->isGranted(PartieVoter::JoueJ2,$partie))
-        {
-            $joueur=-1;
         }else{
             $joueur=0;
             $error = "vous n'avez pas le droit de jouer sur cette partie";
         }
-        if(!$partie->getTablier()->getTabValeurs($request->get("x_o"),$request->get("y_o"))->getProprietaire()==$joueur && $joueur!=0)
+        if(!$partie->getTablier()->getTabValeurs($request->get("x_o"),$request->get("y_o"))->getProprietaire()==$partie->getTourJoueur() && $joueur!=0)
         {
             $error="Cette piece n'est pas à vous";
         }else{
@@ -80,6 +78,6 @@ class ApiController extends Controller
             }
         }
         $em->flush();
-        return $this->json(["error"=>$error,"tab"=>$partie->getTablier()->getTabJoueur($joueur)]);
+        return $this->json(["error"=>$error,"tab"=>$partie->getTablier()->getTabJoueur($joueur),"peut_jouer"=>$this->isGranted(PartieVoter::PeutJouer,$partie)]);
     }
 }
