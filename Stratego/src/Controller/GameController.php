@@ -24,4 +24,12 @@ class GameController extends Controller
     {
         return $this->render('game/index.html.twig');
     }
+
+    /**
+     * @Route("/game/init/{id}", name="init_game", requirements={"id": "\d+"})
+     */
+    public function initGameAction(int $id)
+    {
+        return $this->render('game/init.html.twig');
+    }
 }
