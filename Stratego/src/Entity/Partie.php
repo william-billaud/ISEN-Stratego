@@ -38,6 +38,7 @@ class Partie
     const FINI="PARTIE FINI";
     const DEBUT="DEBUT";
     const DECLINE="DECLINE";
+    const MANQUE_JOUEUR="EN RECHERCHE D UN JOUEUR";
 
 
     /**
@@ -275,6 +276,16 @@ class Partie
     {
         $this->tour_joueur = $tour_joueur;
 
+        return $this;
+    }
+
+    public function creePartie(User $user,$etat= Partie::MANQUE_JOUEUR):self
+    {
+        $this->setJoueur1($user);
+        $this->setEtatPartie($etat);
+        $this->setTablier(new Tablier());
+        $this->setDateDebut(new \DateTime());
+        $this->setTourJoueur(0);
         return $this;
     }
 }

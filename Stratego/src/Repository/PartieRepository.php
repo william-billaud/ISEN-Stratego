@@ -39,6 +39,26 @@ class PartieRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * @param UserInterface $user
+     * @return Partie|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findPartieEnAttenteJoueur(UserInterface $user)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.etatPartie= :val')
+            ->andWhere('p.Joueur1 !=joueur')
+            ->setParameter('val', Partie::MANQUE_JOUEUR)
+            ->setParameter('joueur',$user)
+            ->orderBy('p.dateDebut', 'ASC')
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
+
+
     /*
     public function findOneBySomeField($value): ?Partie
     {
