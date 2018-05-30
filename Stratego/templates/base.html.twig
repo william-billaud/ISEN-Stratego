@@ -25,20 +25,6 @@
     </nav>
 </div>
 
-<nav>
-    <div class="nav-wrapper teal">
-        <a href="/" class="brand-logo">Accueil</a>
-        <ul class="right hide-on-med-and-down">
-            <li><a href="{{ path('snackbar') }}">Le chat</a></li>
-            <li><a href="{{ path('affiche_defie') }}">Defi Recu</a></li>
-            <li><a href="{{ path('montrePartie') }}">Partie en cours</a></li>
-            {% if app.user != null %}
-            <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
-            {% endif %}
-        </ul>
-    </div>
-</nav>
-
 <div class="container">
     {% block body %}{% endblock %}
 </div>
