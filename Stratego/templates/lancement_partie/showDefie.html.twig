@@ -1,32 +1,33 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-    <h4>Defies : </h4>
-    {% for defie in parties %}
-        <div class="col s12">
-            <div class='card #03a9f4 light-blue'>
-                <div class="card-content">
-                    <div class="left">
-                        <h7><i>Joueur : </i>{{ defie.joueur1.username|e }}</h7>
+    <div class="container">
+        <h4>Defies : </h4>
+        {% for defie in parties %}
+            <div class="col s12">
+                <div class='card #03a9f4 light-blue'>
+                    <div class="card-content">
+                        <div class="left">
+                            <h7><i>Joueur : </i>{{ defie.joueur1.username|e }}</h7>
+                        </div>
+                        <div class="right">
+                            <a href="{{ path('accepteDefie',{'idPartie':defie.id}) }}"
+                               class="btn waves-effect waves-light #90a4ae green lighten-2" id="accepter">Accepter
+                                <i class="material-icons right">directions_walk</i>
+                            </a>
+                            <a href="{{ path('refuseDefie',{'idPartie':defie.id}) }}"
+                               class="btn waves-effect wawes-light #90a4ae red lighten-2" id="refuser">Refuser
+                                <i class="material-icons right">directions_walk</i>
+                            </a>
+                        </div>
                     </div>
-                    <div class="right">
-                        <a href="{{ path('accepteDefie',{'id':defie.id}) }}"
-                           class="btn waves-effect waves-light #90a4ae green lighten-2" id="accepter">Accepter
-                            <i class="material-icons right">directions_walk</i>
-                        </a>
-                        <a href="{{ path('refuseDefie',{'id':defie.id}) }}"
-                           class="btn waves-effect wawes-light #90a4ae red lighten-2" id="refuser">Refuser
-                            <i class="material-icons right">directions_walk</i>
-                        </a>
+                    <div class="card-action">
+                        <p><i>En attente : </i>{{ defie.dateDebut|date('d/m/y H:i') }}</p>
                     </div>
-                </div>
-                <div class="card-action">
-                    <p><i>En attente : </i>{{ defie.dateDebut|date('d/m/y H:i') }}</p>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
 
 {% endblock %}
 

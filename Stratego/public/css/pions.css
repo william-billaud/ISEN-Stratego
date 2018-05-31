@@ -116,11 +116,11 @@
 }
 
 .herbe-border {
-    background-image: url(../img/grass.png);
+    background-image: url(../img/light-grass.png);
     width: 225px;
     height: 100px;
     display: block;
-    border: #000000 solid 4px;
+    border: #000000 solid 2px;
 }
 
 .eau {
