@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Security\Voter\PartieVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,7 +37,8 @@ class LancementPartieController extends Controller
     }
 
     /**
-     * @Route("/accepteDefi/{id}",name="accepteDefie",requirements={"idPartie": "\d+"})
+     * @Route("/accepteDefi/{idPartie}",name="accepteDefie",requirements={"idPartie": "\d+"})
+     * @ParamConverter("partie", options={"mapping"={"idPartie"="id"}})
      * @Security("has_role('ROLE_USER')")
      * @param Partie $partie
      * @param EntityManagerInterface $em
@@ -57,7 +59,8 @@ class LancementPartieController extends Controller
     }
 
     /**
-     * @Route("/refuseDefi/{id}",name="refuseDefie",requirements={"idPartie": "\d+"})
+     * @Route("/refuseDefi/{idPartie}",name="refuseDefie",requirements={"idPartie": "\d+"})
+     * @ParamConverter("partie", options={"mapping"={"idPartie"="id"}})
      * @param Partie $partie
      * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
