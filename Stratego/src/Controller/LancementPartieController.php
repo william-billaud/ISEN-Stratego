@@ -57,17 +57,17 @@ class LancementPartieController extends Controller
     }
 
     /**
-     * @Route("/refuseDefie/{idPartie}",name="refuseDefie",requirements={"idPartie": "\d+"})
-     * @param int $idPartie
+     * @Route("/refuseDefie/{id}",name="refuseDefie",requirements={"idPartie": "\d+"})
+     * @param Partie $partie
      * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Security("has_role('ROLE_USER')")
      */
-    public function refuseDefie(int $idPartie,EntityManagerInterface $em)
+    public function refuseDefie(Partie $partie,EntityManagerInterface $em)
     {
-        $partie=$em->find(Partie::class,$idPartie);
+
         /** @var User $user */
-        if($this->isGranted(PartieVoter::Joueur2,$partie))
+        if($partie !=null && $this->isGranted(PartieVoter::Joueur2,$partie))
         {
             $partie->setEtatPartie(Partie::DECLINE);
         }

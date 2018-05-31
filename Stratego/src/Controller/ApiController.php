@@ -144,19 +144,22 @@ class ApiController extends Controller
         $x=$request->get("x");
         $y=$request->get("y");
         $value=$request->get("value");
+        $side=0;
         try{
-            if($y>0 && $y<4)
+            if($this->isGranted(PartieVoter::InitJ1,$partie))
             {
-                if($this->isGranted(PartieVoter::InitJ1,$partie))
+                $side=1;
+                if($y>=0 && $y<4&& $y!=null)
                 {
                     Pions::pionsFactory($partie->getTablier(),$x,$y,$value,1);
                 }else{
                     throw new \InvalidArgumentException("Vous souhaitez possitionner des pions hors de votre coté 1");
-
                 }
-            }elseif ($y>5 && $y<10)
+            }
+            elseif($this->isGranted(PartieVoter::InitJ2,$partie))
             {
-                if($this->isGranted(PartieVoter::InitJ2,$partie))
+                $side =-1;
+                if($y>5 && $y<10)
                 {
                     Pions::pionsFactory($partie->getTablier(),$x,$y,$value,-1);
                 }else{
@@ -164,7 +167,7 @@ class ApiController extends Controller
 
                 }
             }else{
-                throw new \InvalidArgumentException("Vous souhaitez possitionner des pions hors de votre coté 3");
+                throw new \InvalidArgumentException("Ce n'est pas votre parties");
             }
         }catch (\InvalidArgumentException $e)
         {
@@ -172,7 +175,7 @@ class ApiController extends Controller
             $error=$e->getMessage();
         }
         $em->flush();
-        return $this->json(["error"=>$error,"valide"=>$validite,"tab"=>$partie->getTabjoueur($this->getUser()),"restante"=>$partie->getNbPieceAPlacer($this->getUser())]);
+        return $this->json(["error"=>$error,"valide"=>$validite,"tab"=>$partie->getTabjoueur($this->getUser()),"restante"=>$partie->getNbPieceAPlacer($this->getUser()),"side"=>$side]);
 
 
     }

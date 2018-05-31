@@ -66,6 +66,10 @@ class PartieVoter extends Voter
                 }
                 break;
             case self::PeutJouer :
+                if(!Partie::ENCOUR==$subject->getEtatPartie())
+                {
+                    return false;
+                }
                 $joueur=$subject->getTourJoueur();
                 if($joueur==1)
                 {
