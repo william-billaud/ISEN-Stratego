@@ -20,9 +20,10 @@
 <div class="row">
     <nav>
         <div class="nav-wrapper #607d8b blue-grey">
-            <a href="/" class="brand-logo">Accueil</a>
+            <a href="/" class="brand-logo">Stratégo</a>
             <ul class="right hide-on-med-and-down">
                 {% if app.user != null %}
+                    <li><a href="{{ path('regles') }}">Règles</a></li>
                     <li><a href="{{ path('affiche_defie') }}">Defi reçu</a></li>
                     <li><a href="{{ path('montrePartie') }}">Partie en cours</a></li>
                     <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
