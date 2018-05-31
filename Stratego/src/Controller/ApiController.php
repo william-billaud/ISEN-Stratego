@@ -21,24 +21,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class ApiController extends Controller
 {
     /**
-     * @Route("/getTab/{id}", name="api_get_tab",requirements={"id": "\d+"})
-     * @param EntityManagerInterface $em
-     * @param int $id identifiant de la partie
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    public function index(EntityManagerInterface $em, int $id)
-    {
-        $partie=$em->find(Partie::class,$id);
-        if($partie==null)
-        {
-            return $this->json(["error"=>"la partie n'existe pas"]);
-        }
-
-        $arr=$partie->getTabjoueur($this->getUser());
-        return $this->json(["tab"=>$arr,"peut_jouer"=>$this->isGranted(PartieVoter::PeutJouer,$partie),"derniereAttaque"=>$partie->getTablier()->dernierCombat]);
-    }
-
-    /**
      * @Route("/joue/{id}",name="api_joue_coup",requirements={"id": "\d+"}),
      * @param EntityManagerInterface $em
      * @param Request $request

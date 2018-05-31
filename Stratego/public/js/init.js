@@ -190,14 +190,17 @@ function afficheTableau(data)
                 if(this.y>=0 && this.y<4 && data.side===1)
                 {
                     bg.addClass("herbe-border");
+                    bg.attr("ondrop", "drop(event)");
+                    bg.attr("ondragover", "allowDrop(event)");
                 }else if(this.y>=6 && this.y<10 && data.side===-1){
                     bg.addClass("herbe-border");
+                    bg.attr("ondrop", "drop(event)");
+                    bg.attr("ondragover", "allowDrop(event)");
                 }else
                 {
                     bg.addClass("herbe");
                 }
-                bg.attr("ondrop", "drop(event)");
-                bg.attr("ondragover", "allowDrop(event)");
+
                 bg.attr("id_herbes", this.x + "-" + this.y);
             }
             var div = $("<div class='personnage'></div>");
