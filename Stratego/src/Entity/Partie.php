@@ -250,4 +250,20 @@ class Partie
         return $this->getTablier()->getTabJoueur(0);
     }
 
+    public function getNbPieceAPlacer(User $user=null)
+    {
+        if($user==null)
+        {
+            return null;
+        }
+        if($user->isEquals($this->getJoueur1()))
+        {
+            return $this->getTablier()->nombreOccurenceRestante(0,3);
+        }else if($user->isEquals($this->getJoueur2()))
+        {
+            return $this->getTablier()->nombreOccurenceRestante(6,9);
+        }
+        return null;
+    }
+
 }

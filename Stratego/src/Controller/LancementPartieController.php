@@ -36,23 +36,24 @@ class LancementPartieController extends Controller
     }
 
     /**
-     * @Route("/accepteDefie/{idPartie}",name="accepteDefie",requirements={"idPartie": "\d+"})
+     * @Route("/accepteDefie/{id}",name="accepteDefie",requirements={"idPartie": "\d+"})
      * @Security("has_role('ROLE_USER')")
-     * @param int $idPartie
+     * @param Partie $partie
      * @param EntityManagerInterface $em
      * @return Response
      */
-    public function accepteDefie(int $idPartie, EntityManagerInterface $em)
+    public function accepteDefie(Partie $partie, EntityManagerInterface $em)
     {
-        $partie=$em->find(Partie::class,$idPartie);
         /** @var User $user */
-        if($this->isGranted(PartieVoter::Joueur2,$partie))
+        if($partie!=null && $this->isGranted(PartieVoter::Joueur2,$partie))
         {
             $partie->setEtatPartie(Partie::INITIALISATION);
+        }else{
+            return $this->redirectToRoute('base');
         }
         $em->flush();
 
-        return $this->redirectToRoute('affiche_tab',["id"=>$partie->getId()]);
+        return $this->redirectToRoute('init_game',["id"=>$partie->getId()]);
     }
 
     /**
@@ -120,7 +121,7 @@ class LancementPartieController extends Controller
                     /** @var User $user */
                     $partie->setJoueur2($user);
                     $partie->setEtatPartie(Partie::INITIALISATION);
-                    $this->addFlash('notice',"Vous avez rejoind une partie contre ".$partie->getJoueur1());
+                    $this->addFlash('notice',"Vous avez rejoins une partie contre ".$partie->getJoueur1());
                 }
             }
             $em->persist($partie);

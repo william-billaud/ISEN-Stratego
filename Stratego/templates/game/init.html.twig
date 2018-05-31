@@ -10,10 +10,6 @@
 {% block title %}Initialisation de la partie{% endblock %}
 
 {% block body %}
-    <div id="board">
-    </div>
-    <div id="personnages">
-    </div>
     <!--- Chat de messagierie -->
     <div class="fixed">
         <div class="col s6">
@@ -45,7 +41,18 @@
             <li><a id="btn4" class="btn-floating #455a64 blue-grey darken-2"><i
                             class="material-icons">chat_bubble</i></a><i id="text4">Bonjour</i></li>
         </ul>
+
+    <a href="{{ path('valide_positionnement_pieces',{'id':idPartie}) }}"
+       class="btn waves-effect wawes-light #90a4ae green lighten-2" id="valider">Valider
+        <i class="material-icons right">directions_walk</i>
+    </a>
+    <div class="row">
+        <div id="board" class="col s9">
+        </div>
+        <div id="personnages" class="col s3">
+        </div>
     </div>
+    
     <!-- The actual snackbar -->
     <div id="snackbarBot">I'm the bottom message</div>
 
