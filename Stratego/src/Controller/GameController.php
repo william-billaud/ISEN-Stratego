@@ -125,21 +125,23 @@ class GameController extends Controller
             return $this->redirectToRoute('init_game',["id"=>$partie->getId()]);
         }
 
-        if($partie->getTourJoueur()==0 || $partie->getTabjoueur()==null)
+        if($partie->getTourJoueur()==0 || $partie->getTabjoueur()==null ||$partie->getTourJoueur()==-$joueur )
         {
             $partie->setTourJoueur(-$joueur);
 
             $em->flush();
+            $this->addFlash('notice',"Validation enregistrée");
             return $this->redirectToRoute('init_game',["id"=>$partie->getId()]);
-        }else if($partie->getTourJoueur()== -$joueur)
+        }else if($partie->getTourJoueur()== $joueur)
         {
             $partie->setEtatPartie(Partie::ENCOUR);
+            $partie->setNumeroTour(0);
             $partie->setTourJoueur(1);
             $em->flush();
             return $this->redirectToRoute('play_game',["id"=>$partie->getId()]);
         }
 
-
+        return $this->redirectToRoute('base');
 
     }
 }
