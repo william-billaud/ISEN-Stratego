@@ -14,11 +14,13 @@ class PartieVoter extends Voter
     const JoueJ1 ="PLAY-1";
     const JoueJ2 ="PLAY-2";
     const PeutJouer="PEUT_JOUER";
+    const InitJ1='INIT-J1';
+    const InitJ2='INIT-J2';
     protected function supports($attribute, $subject)
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, [self::Joueur1,self::Joueur2,self::JoueJ1,self::JoueJ2,self::PeutJouer])
+        return in_array($attribute, [self::Joueur1,self::Joueur2,self::JoueJ1,self::JoueJ2,self::PeutJouer,self::InitJ1,self::InitJ2])
             && $subject instanceof Partie;
     }
 
@@ -72,6 +74,18 @@ class PartieVoter extends Voter
                     return ($subject->getJoueur2()->getId()==$user->getId())?true:false;
                 }
                 return false;
+                break;
+            case self::InitJ1 :
+                if($subject->getJoueur1()->getId()==$user->getId()&& Partie::INITIALISATION==$subject->getEtatPartie())
+                {
+                    return true;
+                }
+                break;
+            case self::InitJ2 :
+                if($subject->getJoueur2()->getId()==$user->getId()&& Partie::INITIALISATION==$subject->getEtatPartie())
+                {
+                    return true;
+                }
                 break;
         }
 

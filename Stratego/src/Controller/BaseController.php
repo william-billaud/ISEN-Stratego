@@ -103,7 +103,7 @@ class BaseController extends Controller
         $p = new Partie();
         $p->setTablier($tab);
         $p->setDateDebut(new \DateTime());
-        $p->setEtatPartie("DEBUT");
+        $p->setEtatPartie(Partie::ENCOUR);
         $p->setJoueur1($em->find(User::class,1));
         $p->setJoueur2($em->find(User::class,2));
         $em->persist($p);

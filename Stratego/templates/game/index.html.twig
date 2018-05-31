@@ -9,9 +9,13 @@
 {% block title %}Partie en cours{% endblock %}
 
 {% block body %}
+    <a href="{{ path('leaves_game',{'id':idPartie}) }}"
+       class="btn waves-effect wawes-light #90a4ae red lighten-2" id="refuser">Abandonner
+        <i class="material-icons right">directions_walk</i>
+    </a>
     <div id="board">
     </div>
-    <button id="button">Hello</button>
+    <button id="button">hello</button>
 {% endblock %}
 
 {% block javascripts %}

@@ -7,10 +7,11 @@ use App\Game\CasesVide;
 use App\Game\Pions\Pions;
 use App\Security\Voter\PartieVoter;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Security\Core\User\UserInterface;
+
 
 /**
  * Class ApiController
@@ -94,6 +95,10 @@ class ApiController extends Controller
      */
     public function verifieCoupValide(Request $request,Partie $partie=null)
     {
+        if($partie==null)
+        {
+            return $this->json(["error"=>"la partie n'existe pas"]);
+        }
         $joueur=$partie->getTourJoueur();
         $validite=true;
         $error="";
@@ -126,6 +131,58 @@ class ApiController extends Controller
             $validite =false;
             $error=$e->getMessage();
         }
-        return $this->json(["error"=>$error,"valide"=>$validite],200,["Access-Control-Allow-Origin"=>"*"]);
+        return $this->json(["error"=>$error,"valide"=>$validite]);
     }
+
+    /**
+     * @Route("/init/{id}",name="positionne pièces depart",requirements={"id": "\d+"}),
+     * @param Partie|null $partie
+     * @Security("has_role('ROLE_USER')")
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+
+    public function positionnePieceDepart(Request $request,Partie $partie)
+    {
+        if($partie==null)
+        {
+            return $this->json(["error"=>"la partie n'existe pas"]);
+        }
+        $validite=true;
+        $error="";
+        $x=$request->get("x");
+        $y=$request->get("y");
+        $value=$request->get("value");
+        try{
+            if($y>0 && $y<4)
+            {
+                if($this->isGranted(PartieVoter::InitJ1,$partie))
+                {
+                    Pions::pionsFactory($partie->getTablier(),$x,$y,$value,1);
+                }else{
+                    throw new \InvalidArgumentException("Vous souhaitez possitionner des pions hors de votre coté");
+
+                }
+            }elseif ($y>5 && $y<10)
+            {
+                if($this->isGranted(PartieVoter::InitJ2,$partie))
+                {
+                    Pions::pionsFactory($partie->getTablier(),$x,$y,$value,-1);
+                }else{
+                    throw new \InvalidArgumentException("Vous souhaitez possitionner des pions hors de votre coté");
+
+                }
+            }else{
+                throw new \InvalidArgumentException("Vous souhaitez possitionner des pions hors de votre coté");
+            }
+        }catch (\InvalidArgumentException $e)
+        {
+            $validite =false;
+            $error=$e->getMessage();
+        }
+        return $this->json(["error"=>$error,"valide"=>$validite]);
+
+
+    }
+
+
 }

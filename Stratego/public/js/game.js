@@ -2,7 +2,7 @@ $(document).ready(function () {
     console.log("Ajax");
 
     $.ajax({
-        url: '/api/getTab/1',
+        url: '/api/getTab/8',
             data: {
             format: 'json'
         },

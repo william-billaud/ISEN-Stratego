@@ -2,21 +2,7 @@
 
 namespace App\Entity;
 
-use App\Game\CasesInconnue;
-use App\Game\CasesVide;
-use App\Game\Lacs;
-use App\Game\Pions\Capitaine;
-use App\Game\Pions\Colonels;
-use App\Game\Pions\Demineurs;
-use App\Game\Pions\Drapeau;
-use App\Game\Pions\Espions;
-use App\Game\Pions\General;
-use App\Game\Pions\Lieutenants;
-use App\Game\Pions\Lieutenants_Colonels;
-use App\Game\Pions\Marechal;
-use App\Game\Pions\Mines;
-use App\Game\Pions\Sergent;
-use App\Game\Pions\Soldats;
+use App\Game\Cases;
 use App\Game\Tablier;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
@@ -161,56 +147,11 @@ class Partie
         {
             foreach ($value as $case)
             {
-                switch ($case["value"])
-                {
-                    case -1:
-                        new CasesInconnue($tab,$case["x"],$case["y"],$case["proprietaire"]);
-                        break;
-                    case -2:
-                        new CasesVide($tab,$case["x"],$case["y"]);
-                        break;
-                    case -3:
-                        new Lacs($tab,$case["x"],$case["y"]);
-                        break;
-                    case 0:
-                        new Drapeau($tab,$case["x"],$case["y"],$case["proprietaire"]);
-                        break;
-                    case 1:
-                        new Espions($tab,$case["x"],$case["y"],$case["proprietaire"]);
-                        break;
-                    case 2:
-                        new Soldats($tab,$case["x"],$case["y"],$case["proprietaire"]);
-                        break;
-                    case 3:
-                        new Demineurs($tab,$case["x"],$case["y"],$case["proprietaire"]);
-                        break;
-                    case 4:
-                        new Sergent($tab,$case["x"],$case["y"],$case["proprietaire"]);
-                        break;
-                    case 5:
-                        new Lieutenants($tab,$case["x"],$case["y"],$case["proprietaire"]);
-                        break;
-                    case 6:
-                        new Capitaine($tab,$case["x"],$case["y"],$case["proprietaire"]);
-                        break;
-                    case 7:
-                        new Lieutenants_Colonels($tab,$case["x"],$case["y"],$case["proprietaire"]);
-                        break;
-                    case 8:
-                        new Colonels($tab,$case["x"],$case["y"],$case["proprietaire"]);
-                        break;
-                    case 9:
-                        new General($tab,$case["x"],$case["y"],$case["proprietaire"]);
-                        break;
-                    case 10:
-                        new Marechal($tab,$case["x"],$case["y"],$case["proprietaire"]);
-                        break;
-                    case 11:
-                        new Mines($tab,$case["x"],$case["y"],$case["proprietaire"]);
-                        break;
-                }
+                Cases::pionsFactory($tab,$case["x"],$case["y"],$case["value"],$case["proprietaire"]);
             }
         }
+        $tab->dernierCombat=$res["dernierCombat"];
+        $tab->estFini=$res["estFini"];
         $this->setTablier($tab);
     }
 

@@ -9,6 +9,19 @@
 namespace App\Game;
 
 
+use App\Game\Pions\Capitaine;
+use App\Game\Pions\Colonels;
+use App\Game\Pions\Demineurs;
+use App\Game\Pions\Drapeau;
+use App\Game\Pions\Espions;
+use App\Game\Pions\General;
+use App\Game\Pions\Lieutenants;
+use App\Game\Pions\Lieutenants_Colonels;
+use App\Game\Pions\Marechal;
+use App\Game\Pions\Mines;
+use App\Game\Pions\Sergent;
+use App\Game\Pions\Soldats;
+
 abstract class Cases
 {
     /**
@@ -141,4 +154,56 @@ abstract class Cases
         throw new \InvalidArgumentException("les cases".$this->name." ne peuvent etre deplace");
     }
 
+
+    public static function pionsFactory($tab,$x,$y,$value,$proprio=0)
+    {
+        switch ($value)
+        {
+            case -1:
+                new CasesInconnue($tab,$x,$y,$proprio);
+                break;
+            case -2:
+                new CasesVide($tab,$x,$y);
+                break;
+            case -3:
+                new Lacs($tab,$x,$y);
+                break;
+            case 0:
+                new Drapeau($tab,$x,$y,$proprio);
+                break;
+            case 1:
+                new Espions($tab,$x,$y,$proprio);
+                break;
+            case 2:
+                new Soldats($tab,$x,$y,$proprio);
+                break;
+            case 3:
+                new Demineurs($tab,$x,$y,$proprio);
+                break;
+            case 4:
+                new Sergent($tab,$x,$y,$proprio);
+                break;
+            case 5:
+                new Lieutenants($tab,$x,$y,$proprio);
+                break;
+            case 6:
+                new Capitaine($tab,$x,$y,$proprio);
+                break;
+            case 7:
+                new Lieutenants_Colonels($tab,$x,$y,$proprio);
+                break;
+            case 8:
+                new Colonels($tab,$x,$y,$proprio);
+                break;
+            case 9:
+                new General($tab,$x,$y,$proprio);
+                break;
+            case 10:
+                new Marechal($tab,$x,$y,$proprio);
+                break;
+            case 11:
+                new Mines($tab,$x,$y,$proprio);
+                break;
+        }
+    }
 }
