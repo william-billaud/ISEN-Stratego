@@ -1,8 +1,12 @@
 $(document).ready(function () {
+    var url = window.location.pathname;
+    var game_id = url.split("/")[2];
+    console.log(game_id);
+
     console.log("Ajax");
 
     $.ajax({
-        url: '/api/getTab/8',
+        url: '/api/getTab/'+game_id,
             data: {
             format: 'json'
         },
