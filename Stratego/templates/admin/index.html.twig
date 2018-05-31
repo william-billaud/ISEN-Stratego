@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ controller_name }}!{% endblock %}
+
+{% block body %}
+    <div class="col s12">
+        <h4>Joueurs : </h4>
+        {% for user in users %}
+            <div class="col s12">
+                <div class='card #03a9f4 light-blue'>
+                    <div class="card-content">
+                        <div class="left">
+                            <h6>{{ user.username|e }}</h6>
+                        </div>
+                        <div class="right">
+                            {% if user.roles == ["ROLE_USER"] %}
+                                <a href="{{ path('banned',{'id_user':user.id, 'banned':1}) }}"
+                                   class="btn waves-effect wawes-light #90a4ae red lighten-2" id="refuser">Bannir
+                                    <i class="material-icons right">warning</i>
+                                </a>
+                            {% endif %}
+                            {% if user.roles == ["ROLE_BANNED"] %}
+                                <a href="{{ path('banned',{'id_user':user.id, 'banned':0}) }}"
+                                   class="btn waves-effect wawes-light #90a4ae green lighten-2" id="refuser">Enlever le
+                                    bannissement
+                                    <i class="material-icons right">warning</i>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-action">
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

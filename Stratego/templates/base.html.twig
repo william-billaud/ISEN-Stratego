@@ -22,10 +22,25 @@
         <div class="nav-wrapper #607d8b blue-grey">
             <a href="/" class="brand-logo">Accueil</a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="{{ path('affiche_defie') }}">Defi reçu</a></li>
-                <li><a href="{{ path('montrePartie') }}">Partie en cours</a></li>
                 {% if app.user != null %}
+                    <li><a href="{{ path('affiche_defie') }}">Defi reçu</a></li>
+                    <li><a href="{{ path('montrePartie') }}">Partie en cours</a></li>
                     <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+                {% endif %}
+                {% if app.user != null %}
+                    {% if app.user.roles == ["ROLE_ADMIN"] %}
+                        <li><a href="{{ path('admin') }}" class="black-text">Admin</a></li>
+                    {% endif %}
+                {% endif %}
+                {% if app.user != null %}
+                    {% if app.user.roles == ["ROLE_ADMIN"] %}
+                        <li><a href="{{ path('app_login') }}" class="black-text">Connexion</a></li>
+                    {% endif %}
+                {% endif %}
+                {% if app.user != null %}
+                    {% if app.user.roles == ["ROLE_ADMIN"] %}
+                        <li><a href="{{ path('user_registration') }}" class="black-text">Inscription</a></li>
+                    {% endif %}
                 {% endif %}
             </ul>
         </div>
