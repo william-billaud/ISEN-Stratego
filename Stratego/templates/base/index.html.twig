@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}Accueil - Stratego{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container" style="margin-top: 20px">
         <div class="col s12">
             <div class="row">
                 <a class="btn waves-effect waves-light col s12 #90a4ae blue-grey lighten-2" id="jouer"
@@ -13,20 +13,14 @@
             </div>
             <h4>Joueurs : </h4>
             {% for user in users %}
-                <div class="col s12">
-                    <div class='card #03a9f4 light-blue'>
-                        <div class="card-content">
-                            <div class="left">
-                                <h6>{{ user.username|e }}</h6>
-                            </div>
-                            <div class="right">
-                                <a href="{{ path('lancementDefi',{'idJoueurDefie':user.id}) }}"
-                                   class="btn waves-effect waves-light #90a4ae blue-grey lighten-2" id="defier">Défier
-                                    <i class="material-icons right">directions_walk</i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="card-action">
+                <div class="row">
+                    <div class="col s12">
+                        <div class='card-panel row #03a9f4 light-blue'>
+                            <h6 class="col s2">{{ user.username|e }}</h6>
+                            <a href="{{ path('lancement_partie',{'idJoueurDefie':user.id}) }}"
+                               class="right btn waves-effect waves-light #90a4ae blue-grey lighten-2" id="defier">Défier
+                                <i class="material-icons right">directions_walk</i>
+                            </a>
                         </div>
                     </div>
                 </div>
