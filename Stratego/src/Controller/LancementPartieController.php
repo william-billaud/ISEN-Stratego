@@ -16,14 +16,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class LancementPartieController extends Controller
 {
     /**
-     * @Route("/lancement/partie/{idJoueurDefie}", name="lancement_partie")
+     * @Route("/defi/{idJoueurDefie}", name="lancementDefi")
      * @Security("has_role('ROLE_USER')")
      * @param UserInterface $user
      * @param int $idJoueurDefie
      * @param EntityManagerInterface $em
      * @return Response
      */
-    public function index(UserInterface $user, int $idJoueurDefie, EntityManagerInterface $em)
+    public function lanceDefi(UserInterface $user, int $idJoueurDefie, EntityManagerInterface $em)
     {
         $userDefie=$em->find(User::class,$idJoueurDefie);
         $partie=new Partie();
@@ -36,7 +36,7 @@ class LancementPartieController extends Controller
     }
 
     /**
-     * @Route("/accepteDefie/{id}",name="accepteDefie",requirements={"idPartie": "\d+"})
+     * @Route("/accepteDefi/{id}",name="accepteDefie",requirements={"idPartie": "\d+"})
      * @Security("has_role('ROLE_USER')")
      * @param Partie $partie
      * @param EntityManagerInterface $em
@@ -57,7 +57,7 @@ class LancementPartieController extends Controller
     }
 
     /**
-     * @Route("/refuseDefie/{id}",name="refuseDefie",requirements={"idPartie": "\d+"})
+     * @Route("/refuseDefi/{id}",name="refuseDefie",requirements={"idPartie": "\d+"})
      * @param Partie $partie
      * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\RedirectResponse

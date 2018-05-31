@@ -18,11 +18,12 @@ class SecurityController extends Controller
 
     /**
      * @Route("/login", name="app_login")
+     * @param AuthenticationUtils $authenticationUtils
+     * @param AuthorizationCheckerInterface $authChecker
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function loginAction(
-        Request $request,
-        AuthenticationUtils $authenticationUtils,
-        AuthorizationCheckerInterface $authChecker
+        AuthenticationUtils $authenticationUtils, AuthorizationCheckerInterface $authChecker
     ) {
         if ($authChecker->isGranted('ROLE_USER') && !$authChecker->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('base');
@@ -39,6 +40,10 @@ class SecurityController extends Controller
 
     /**
      * @Route("/register", name="user_registration")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param AuthorizationCheckerInterface $authChecker
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function register(
         Request $request,

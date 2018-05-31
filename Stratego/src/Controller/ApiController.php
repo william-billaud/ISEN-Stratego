@@ -64,54 +64,6 @@ class ApiController extends Controller
         return $this->json(["error"=>$error,"tab"=>$partie->getTabjoueur($this->getUser()),"peut_jouer"=>$this->isGranted(PartieVoter::PeutJouer,$partie),"derniereAttaque"=>$partie->getTablier()->dernierCombat]);
     }
 
-
-    /**
-     * @Route("/coupValide/{id}",name="verifie_coup_valide",requirements={"id": "\d+"}),
-     * @param Request $request
-     * @param Partie|null $partie
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    public function verifieCoupValide(Request $request,Partie $partie=null)
-    {
-        if($partie==null)
-        {
-            return $this->json(["error"=>"la partie n'existe pas"]);
-        }
-        $joueur=$partie->getTourJoueur();
-        $validite=true;
-        $error="";
-        try{
-            if($this->isGranted(PartieVoter::PeutJouer,$partie))
-            {
-                throw new \InvalidArgumentException("Ce n'est pas votre tour de jouer");
-            }
-            if(!$partie->getTablier()->getTabValeurs($request->get("x_o"),$request->get("y_o"))->getProprietaire()==$joueur || $joueur==0)
-            {
-                throw  new \InvalidArgumentException("Cette piece n'est pas à vous");
-            }
-            /** @var Pions $pion */
-            $pion=$partie->getTablier()->getTabValeurs($request->get("x_o"),$request->get("y_o"));
-            if(!($pion instanceof Pions))
-            {
-                throw new \InvalidArgumentException("Ceci n'est pas un pions");
-            }
-            if(!$pion->DistanceDeplacementEstValide($request->get("x_a"),$request->get("y_a"))){
-                throw new \InvalidArgumentException("Distance de deplacement invalide");
-            }
-            $cible=$partie->getTablier()->getTabValeurs($request->get("x_a"),$request->get("y_a"));
-            //Joueur Rouge =-1, joueur Bleu =1
-            if(!($cible instanceof Pions || $cible instanceof CasesVide) || $cible->getProprietaire()==$pion->getProprietaire() )
-            {
-                throw new \InvalidArgumentException("La destination n'est pas un cible valide");
-            }
-        }catch (\InvalidArgumentException $e)
-        {
-            $validite =false;
-            $error=$e->getMessage();
-        }
-        return $this->json(["error"=>$error,"valide"=>$validite]);
-    }
-
     /**
      * @Route("/init/{id}",name="positionne_pieces_depart",requirements={"id": "\d+"}),
      * @param Request $request
