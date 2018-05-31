@@ -3,12 +3,45 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/pions.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/snackbar.css') }}">
 {% endblock %}
 
 
 {% block title %}Initialisation de la partie{% endblock %}
 
 {% block body %}
+    <!--- Chat de messagierie -->
+    <div class="fixed">
+        <div class="col s6">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input placeholder="Message" id="ws-content-to-send" type="text" class="validate" value="">
+                    <label for="ws-content-to-send">Send message</label>
+                </div>
+                <div class="input-field col s1">
+                    <button class="btn waves-effect waves-light #90a4ae blue-grey lighten-2" id="ws-send-content">
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed-action-btn click-to-toggle">
+        <a class="btn-floating btn-large #90a4ae blue-grey lighten-2">
+            <i class="large material-icons">mode_edit</i>
+        </a>
+        <ul>
+            <li><a id="btn1" class="btn-floating #455a64 blue-grey darken-2"><i
+                            class="material-icons">chat_bubble</i></a><i id="text1">Ahahahah</i></li>
+            <li><a id="btn2" class="btn-floating #455a64 blue-grey darken-2"><i
+                            class="material-icons">chat_bubble</i></a><i id="text2">Joli coup !</i></li>
+            <li><a id="btn3" class="btn-floating #455a64 blue-grey darken-2"><i
+                            class="material-icons">chat_bubble</i></a><i id="text3">Dépéche toi !</i></li>
+            <li><a id="btn4" class="btn-floating #455a64 blue-grey darken-2"><i
+                            class="material-icons">chat_bubble</i></a><i id="text4">Bonjour</i></li>
+        </ul>
+
     <a href="{{ path('valide_positionnement_pieces',{'id':idPartie}) }}"
        class="btn waves-effect wawes-light #90a4ae green lighten-2" id="valider">Valider
         <i class="material-icons right">directions_walk</i>
@@ -19,8 +52,26 @@
         <div id="personnages" class="col s3">
         </div>
     </div>
+    
+    <!-- The actual snackbar -->
+    <div id="snackbarBot">I'm the bottom message</div>
+
+    <div id="ws-content-receiver">I'm the top message</div>
 {% endblock %}
 
 {% block javascripts %}
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.fixed-action-btn');
+            var instances = M.FloatingActionButton.init(elems, {
+                hoverEnabled: false
+            });
+        });
+
+        var wsUrl = '{{ ws_url }}';
+        var userName = '{{ userName }}';
+        var gameChannel = '{{ gameChannel }}';
+    </script>
+    <script type="text/javascript" src="{{ asset('js/sf-websocket.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/init.js') }}"></script>
 {% endblock %}
