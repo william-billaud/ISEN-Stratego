@@ -81,7 +81,6 @@ class GameController extends Controller
      * @Security("has_role('ROLE_USER')")
      * @param Partie|null $partie
      * @param EntityManagerInterface $em
-     * @param UserInterface $user
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function valideInitialisation(Partie $partie=null,EntityManagerInterface $em)
