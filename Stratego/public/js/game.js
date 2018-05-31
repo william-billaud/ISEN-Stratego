@@ -74,7 +74,7 @@ $(document).ready(function () {
     console.log("Ajax");
 
     $.ajax({
-        url: '/api/getTab/'+game_id,
+        url: '/api/joue/'+game_id,
             data: {
             format: 'json'
         },

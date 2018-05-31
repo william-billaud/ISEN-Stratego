@@ -54,6 +54,10 @@ class ApiController extends Controller
         }
         $joueur=$partie->getTourJoueur();
         try{
+            if($request->get("x_o")== null || $request->get("y_o")==null || $request->get("x_a")== null || $request->get("y_a")==null)
+            {
+                throw new \InvalidArgumentException("Il manque des arguments!");
+            }
             if(!$this->isGranted(PartieVoter::PeutJouer,$partie))
             {
                 throw new \InvalidArgumentException("Ce n'est pas votre tour de jouer");
