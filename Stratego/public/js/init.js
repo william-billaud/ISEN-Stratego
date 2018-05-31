@@ -4,57 +4,12 @@ $(document).ready(function () {
     var game_id = url.split("/")[3];
     console.log(game_id);
 
-    var perso = $("#personnages");
-    for (var i = 0; i < 8; i++) {
-        perso.append("<div class=\"soldat\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
-    }
-
-    for (i = 0; i < 5; i++) {
-        perso.append("<div class=\"demineur\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
-    }
-
-    for (i = 0; i < 4; i++) {
-        perso.append("<div class=\"sergent\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
-    }
-
-    for (i = 0; i < 4; i++) {
-        perso.append("<div class=\"lieutenant\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
-    }
-
-
-    for (i = 0; i < 4; i++) {
-        perso.append("<div class=\"capitaine\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
-    }
-
-    for (i = 0; i < 3; i++) {
-        perso.append("<div class=\"commandant\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
-    }
-
-    for (i = 0; i < 2; i++) {
-        perso.append("<div class=\"colonel\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
-    }
-
-    //General
-    perso.append("<div class=\"general\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
-
-    //Drapeau
-    perso.append("<div class=\"drapeau\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
-
-    //Espion
-    perso.append("<div class=\"espion\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
-
-    //Marechal
-    perso.append("<div class=\"marechal\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
-
-    for (i = 0; i < 6; i++) {
-        perso.append("<div class=\"bombe\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
-    }
-
-
     console.log("Ajax");
 
+    personnagesRestants(game_id);
+
     $.ajax({
-        url: '/api/getTab/'+game_id,
+        url: '/api/getTab/' + game_id,
         data: {
             format: 'json'
         },
@@ -143,4 +98,121 @@ function drop(ev) {
     var data = ev.dataTransfer.getData("pion");
     ev.target.appendChild(document.getElementById(data));
     console.log(ev.target);
+}
+
+function personnagesRestants(game_id)
+{
+    $( "#personnages" ).empty();
+    $.ajax({
+        url: '/api/init/' + game_id,
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+
+            var perso = $("#personnages");
+
+            var restante = data.restante;
+
+            var soldats = jQuery('<div/>', {
+                id: 'soldats',
+                class: 'row'
+            });
+            for (var i = 0; i < restante[2]; i++) {
+                soldats.append("<div class=\"soldat sl1\" id='soldat" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+            }
+            perso.append(soldats);
+
+            var demineurs = jQuery('<div/>', {
+                id: 'demineurs',
+                class: 'row'
+            });
+            for (i = 0; i < restante[3]; i++) {
+                demineurs.append("<div class=\"demineur sl1\" id='demineur" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+            }
+            perso.append(demineurs);
+
+            var sergents = jQuery('<div/>', {
+                id: 'sergents',
+                class: 'row'
+            });
+            for (i = 0; i < restante[4]; i++) {
+                sergents.append("<div class=\"sergent sl1\" id='sergent" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+            }
+            perso.append(sergents);
+
+            var lieutenants = jQuery('<div/>', {
+                id: 'lieutenants',
+                class: 'row'
+            });
+            for (i = 0; i < restante[5]; i++) {
+                lieutenants.append("<div class=\"lieutenant sl1\" id='lieutenant" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+            }
+            perso.append(lieutenants);
+
+            var capitaines = jQuery('<div/>', {
+                id: 'capitaines',
+                class: 'row'
+            });
+            for (i = 0; i < restante[6]; i++) {
+                capitaines.append("<div class=\"capitaine sl1\" id='capitaine" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+            }
+            perso.append(capitaines);
+
+            var commandants = jQuery('<div/>', {
+                id: 'commandants',
+                class: 'row'
+            });
+            for (i = 0; i < restante[7]; i++) {
+                commandants.append("<div class=\"commandant sl1\" id='commandant" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+            }
+            perso.append(commandants);
+
+            var colonels = jQuery('<div/>', {
+                id: 'colonels',
+                class: 'row'
+            });
+            for (i = 0; i < restante[8]; i++) {
+                colonels.append("<div class=\"colonel sl1\" id='colonel" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+            }
+            perso.append(colonels);
+
+            //General
+            var seuls = jQuery('<div/>', {
+                class: 'row'
+            });
+            if (restante[9] !== 0) {
+                seuls.append("<div class=\"general sl1\" id='general' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+            }
+
+            if (restante[0] !== 0) {
+                //Drapeau
+                seuls.append("<div class=\"drapeau sl1\" id='drapeau' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+            }
+
+            if (restante[1] !== 0) {
+                //Espion
+                seuls.append("<div class=\"espion sl1\" id='espion' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+            }
+
+            if (restante[10] !== 0) {
+                //Marechal
+                seuls.append("<div class=\"marechal sl1\" id='marechal' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+            }
+            perso.append(seuls);
+
+            var bombes = jQuery('<div/>', {
+                id: 'bombes',
+                class: 'row'
+            });
+            for (i = 0; i < restante[11]; i++) {
+                bombes.append("<div class=\"bombe sl1\" id='soldat\" + i + \"draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+            }
+            perso.append(bombes);
+
+        },
+
+        error: function () {
+            console.log("error");
+        }
+    });
 }

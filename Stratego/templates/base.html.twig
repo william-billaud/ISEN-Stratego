@@ -12,7 +12,7 @@
 {# you can read and display just one flash message type... #}
 {% for label, messages in app.flashes %}
     {% for message in messages %}
-        <div class="flash-{{ label }}">
+        <div class="flash-{{ label }}" id="popup-message">
             {{ message }}
         </div>
     {% endfor %}
@@ -22,11 +22,25 @@
         <div class="nav-wrapper #607d8b blue-grey">
             <a href="/" class="brand-logo">Accueil</a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="{{ path('snackbar') }}">Le chat</a></li>
-                <li><a href="{{ path('affiche_defie') }}">Defi reçu</a></li>
-                <li><a href="{{ path('montrePartie') }}">Partie en cours</a></li>
                 {% if app.user != null %}
+                    <li><a href="{{ path('affiche_defie') }}">Defi reçu</a></li>
+                    <li><a href="{{ path('montrePartie') }}">Partie en cours</a></li>
                     <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+                {% endif %}
+                {% if app.user != null %}
+                    {% if app.user.roles == ["ROLE_ADMIN"] %}
+                        <li><a href="{{ path('admin') }}" class="black-text">Admin</a></li>
+                    {% endif %}
+                {% endif %}
+                {% if app.user != null %}
+                    {% if app.user.roles == ["ROLE_ADMIN"] %}
+                        <li><a href="{{ path('app_login') }}" class="black-text">Connexion</a></li>
+                    {% endif %}
+                {% endif %}
+                {% if app.user != null %}
+                    {% if app.user.roles == ["ROLE_ADMIN"] %}
+                        <li><a href="{{ path('user_registration') }}" class="black-text">Inscription</a></li>
+                    {% endif %}
                 {% endif %}
             </ul>
         </div>
@@ -37,6 +51,17 @@
     {% block body %}{% endblock %}
 </div>
 <script>
+    var popup = document.getElementById("popup-message");
+    // Add the "show" class to DIV
+    popup.className = "show";
+
+    disappear();
+
+    function disappear() {
+        setTimeout(function () {
+            popup.className = popup.className.replace("show", "");
+        }, 5000);
+    }
 </script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>

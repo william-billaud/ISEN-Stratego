@@ -5,6 +5,7 @@
 
 .colonel {
     background-image: url(../img/small/colonel.png);
+    background-repeat: no-repeat;
     width: 45px;
     height: 55px;
     display: block;
@@ -12,6 +13,7 @@
 
 .capitaine {
     background-image: url(../img/small/capitaine.png);
+    background-repeat: no-repeat;
     width: 45px;
     height: 55px;
     display: block;
@@ -19,6 +21,7 @@
 
 .commandant {
     background-image: url(../img/small/commandant.png);
+    background-repeat: no-repeat;
     width: 45px;
     height: 55px;
     display: block;
@@ -26,6 +29,7 @@
 
 .demineur {
     background-image: url(../img/small/demineur.png);
+    background-repeat: no-repeat;
     width: 45px;
     height: 55px;
     display: block;
@@ -33,6 +37,7 @@
 
 .drapeau {
     background-image: url(../img/small/drapeau.png);
+    background-repeat: no-repeat;
     width: 45px;
     height: 55px;
     display: block;
@@ -40,6 +45,7 @@
 
 .espion {
     background-image: url(../img/small/espion.png);
+    background-repeat: no-repeat;
     width: 45px;
     height: 55px;
     display: block;
@@ -47,6 +53,7 @@
 
 .general {
     background-image: url(../img/small/general.png);
+    background-repeat: no-repeat;
     width: 45px;
     height: 55px;
     display: block;
@@ -54,6 +61,7 @@
 
 .lieutenant {
     background-image: url(../img/small/lieutenant.png);
+    background-repeat: no-repeat;
     width: 45px;
     height: 55px;
     display: block;
@@ -61,6 +69,7 @@
 
 .marechal {
     background-image: url(../img/small/marechal.png);
+    background-repeat: no-repeat;
     width: 45px;
     height: 55px;
     display: block;
@@ -68,6 +77,7 @@
 
 .bombe {
     background-image: url(../img/small/bombe.png);
+    background-repeat: no-repeat;
     width: 45px;
     height: 55px;
     display: block;
@@ -75,6 +85,7 @@
 
 .sergent {
     background-image: url(../img/small/sergent.png);
+    background-repeat: no-repeat;
     width: 45px;
     height: 55px;
     display: block;
@@ -82,6 +93,7 @@
 
 .soldat {
     background-image: url(../img/small/eclaireur.png);
+    background-repeat: no-repeat;
     width: 45px;
     height: 55px;
     display: block;
@@ -89,6 +101,7 @@
 
 .ennemi {
     background-image: url(../img/small/ennemi.png);
+    background-repeat: no-repeat;
     width: 45px;
     height: 55px;
     display: block;
@@ -127,4 +140,8 @@
     padding: 22.5px 0.75rem 0;
     min-height: 1px;
     width: 90px;
+}
+
+.sl1 {
+    float: left;
 }
