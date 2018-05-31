@@ -191,4 +191,32 @@ class Tablier
         $res=$serializer->normalize($this->getTab());
         return $res;
     }
+
+    public function nombreOccurenceRestante(int $y_o,int $y_a)
+    {
+        $res=[
+            0=>1,
+            11=>6,
+            1=>1,
+            2=>8,
+            3=>5,
+            4=>4,
+            5=>4,
+            6=>4,
+            7=>3,
+            8=>2,
+            9=>1,
+            10=>1
+        ];
+        for ($i = $y_o; $i <= $y_a; $i++) {
+            for ($j = 0; $j < 10; $j++) {
+                $index=$this->getTabValeurs($j,$i)->getValue();
+                if($index>=0 && $index<12)
+                {
+                    $res[$index]=$res[$index]-1;
+                }
+            }
+        }
+        return $res;
+    }
 }

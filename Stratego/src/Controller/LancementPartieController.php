@@ -120,7 +120,7 @@ class LancementPartieController extends Controller
                     /** @var User $user */
                     $partie->setJoueur2($user);
                     $partie->setEtatPartie(Partie::INITIALISATION);
-                    $this->addFlash('notice',"Vous avez rejoind une partie contre ".$partie->getJoueur1());
+                    $this->addFlash('notice',"Vous avez rejoins une partie contre ".$partie->getJoueur1());
                 }
             }
             $em->persist($partie);

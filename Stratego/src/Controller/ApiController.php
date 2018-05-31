@@ -173,7 +173,7 @@ class ApiController extends Controller
             $error=$e->getMessage();
         }
         $em->flush();
-        return $this->json(["error"=>$error,"valide"=>$validite,"tab"=>$partie->getTabjoueur($this->getUser())]);
+        return $this->json(["error"=>$error,"valide"=>$validite,"tab"=>$partie->getTabjoueur($this->getUser()),"restante"=>$partie->getNbPieceAPlacer($this->getUser())]);
 
 
     }
