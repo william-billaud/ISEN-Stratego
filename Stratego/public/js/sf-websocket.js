@@ -8,7 +8,8 @@
 
     var addMessageToChannel = function (messages) {
         var obj = JSON.parse(messages);
-        if (obj.action === 'message' && obj.user !== userName) {
+        //console.log("channel message reçu : "+obj.channel +"channel actuel : "+ gameChannel);
+        if (obj.action === 'message' && obj.user !== userName && obj.channel === gameChannel) {
             _receiver.innerHTML = obj.user + " : " + obj.message;
             // Add the "show" class to DIV
             _receiver.className = "showUp";
@@ -23,7 +24,7 @@
     var botMessageToGeneral = function (message) {
         return addMessageToChannel(JSON.stringify({
             action: 'bot-message',
-            channel: defaultChannel,
+            channel: gameChannel,
             user: botName,
             message: message
         }));
@@ -36,7 +37,7 @@
     ws.onopen = function () {
         ws.send(JSON.stringify({
             action: 'subscribe',
-            channel: defaultChannel,
+            channel: gameChannel,
             user: userName
         }));
     };
@@ -66,7 +67,7 @@
             action: 'message',
             user: userName,
             message: content,
-            channel: 'general'
+            channel: gameChannel
         }));
     };
 
