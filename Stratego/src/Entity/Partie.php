@@ -234,5 +234,20 @@ class Partie
         return $this->getJoueur1()." VS ".$this->getJoueur2()." : ".$this->getEtatPartie();
     }
 
+    public function getTabjoueur(User $user=null)
+    {
+        if($user==null)
+        {
+            return $this->getTablier()->getTabJoueur(0);
+        }
+        if($user->isEquals($this->getJoueur1()))
+        {
+            return $this->getTablier()->getTabJoueur(1);
+        }else if($user->isEquals($this->getJoueur2()))
+        {
+            return $this->getTablier()->getTabJoueur(-1);
+        }
+        return $this->getTablier()->getTabJoueur(0);
+    }
 
 }

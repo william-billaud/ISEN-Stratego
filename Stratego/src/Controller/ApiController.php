@@ -33,16 +33,8 @@ class ApiController extends Controller
         {
             return $this->json(["error"=>"la partie n'existe pas"]);
         }
-        $numero=0;
-        if($this->isGranted(PartieVoter::Joueur1,$partie))
-        {
-            $numero=1;
-        }elseif ($this->isGranted(PartieVoter::Joueur2,$partie))
-        {
-            $numero=-1;
-        }
 
-        $arr=$partie->getTablier()->getTabJoueur($numero);
+        $arr=$partie->getTabjoueur($this->getUser());
         return $this->json(["tab"=>$arr,"peut_jouer"=>$this->isGranted(PartieVoter::PeutJouer,$partie),"derniereAttaque"=>$partie->getTablier()->dernierCombat]);
     }
 
@@ -83,7 +75,7 @@ class ApiController extends Controller
             $partie->setTourJoueur($joueur);
         }
         $em->flush();
-        return $this->json(["error"=>$error,"tab"=>$partie->getTablier()->getTabJoueur($joueur),"peut_jouer"=>$this->isGranted(PartieVoter::PeutJouer,$partie),"derniereAttaque"=>$partie->getTablier()->dernierCombat]);
+        return $this->json(["error"=>$error,"tab"=>$partie->getTabjoueur($this->getUser()),"peut_jouer"=>$this->isGranted(PartieVoter::PeutJouer,$partie),"derniereAttaque"=>$partie->getTablier()->dernierCombat]);
     }
 
 
@@ -179,7 +171,7 @@ class ApiController extends Controller
             $validite =false;
             $error=$e->getMessage();
         }
-        return $this->json(["error"=>$error,"valide"=>$validite]);
+        return $this->json(["error"=>$error,"valide"=>$validite,"tab"=>$partie->getTabjoueur($this->getUser())]);
 
 
     }

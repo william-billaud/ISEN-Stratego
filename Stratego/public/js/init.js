@@ -2,7 +2,7 @@ $(document).ready(function () {
     console.log("Ajax");
 
     $.ajax({
-        url: 'http://localhost:8000/api/getTab/1',
+        url: '/api/init/5',
         data: {
             format: 'json'
         },

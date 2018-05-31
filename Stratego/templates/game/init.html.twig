@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/pions.css') }}">
+{% endblock %}
+
+
+{% block title %}Partie en cours{% endblock %}
+
+{% block body %}
+    <a href="{{ path('leaves_game',{'id':idPartie}) }}"
+       class="btn waves-effect wawes-light #90a4ae red lighten-2" id="refuser">Abandonner
+        <i class="material-icons right">directions_walk</i>
+    </a>
+    <div id="board">
+    </div>
+    <button id="button">hello</button>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/init.js') }}"></script>
+{% endblock %}

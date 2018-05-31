@@ -6,7 +6,6 @@ $(document).ready(function () {
             data: {
             format: 'json'
         },
-        crossDomain: true,
         error: function () {
             console.log("error");
         },

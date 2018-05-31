@@ -37,7 +37,9 @@ class GameController extends Controller
      */
     public function initGameAction(int $id)
     {
-        return $this->render('game/init.html.twig');
+        return $this->render('game/init.html.twig',[
+            "idPartie"=>$id
+        ]);
     }
 
     /**
