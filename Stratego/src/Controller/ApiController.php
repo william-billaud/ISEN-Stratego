@@ -54,7 +54,7 @@ class ApiController extends Controller
         }
         $joueur=$partie->getTourJoueur();
         try{
-            if($this->isGranted(PartieVoter::PeutJouer,$partie))
+            if(!$this->isGranted(PartieVoter::PeutJouer,$partie))
             {
                 throw new \InvalidArgumentException("Ce n'est pas votre tour de jouer");
             }
@@ -127,13 +127,12 @@ class ApiController extends Controller
     }
 
     /**
-     * @Route("/init/{id}",name="positionne pièces depart",requirements={"id": "\d+"}),
+     * @Route("/init/{id}",name="positionne_pieces_depart",requirements={"id": "\d+"}),
      * @param Request $request
      * @param Partie|null $partie
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @Security("has_role('ROLE_USER')")
      */
-
     public function positionnePieceDepart(Request $request,Partie $partie,EntityManagerInterface $em)
     {
         if($partie==null)

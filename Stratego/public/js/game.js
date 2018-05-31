@@ -1,6 +1,10 @@
+var url;
+var game_id;
+
+
 $(document).ready(function () {
-    var url = window.location.pathname;
-    var game_id = url.split("/")[2];
+    url = window.location.pathname;
+    game_id = url.split("/")[2];
     console.log(game_id);
 
     console.log("Ajax");
@@ -26,6 +30,7 @@ $(document).ready(function () {
                         bg.addClass("herbe");
                         bg.attr("ondrop", "drop(event)");
                         bg.attr("ondragover", "allowDrop(event)");
+                        bg.attr("id_herbes", this.x + "-" + this.y);
                     }
                     var div = $("<div class='personnage'></div>");
                     div.attr("draggable", true).attr("ondragstart", "drag(event)");
@@ -84,15 +89,38 @@ $(document).ready(function () {
 function allowDrop(ev) {
     ev.preventDefault();
 }
-
+var dragged;
 function drag(ev) {
     ev.dataTransfer.setData("pion", ev.target.id);
     console.log(ev);
+    dragged = ev.target;
 }
 
 function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("pion");
     ev.target.appendChild(document.getElementById(data));
-    console.log(ev.target);
+    var start=dragged.getAttribute("id").split('-',2);
+    var targetAttr=ev.target.getAttribute("id_herbes");
+    if(targetAttr==null)
+    {
+        targetAttr= ev.target.getAttribute("id");
+    }
+        var arrive=targetAttr.split('-',2);
+    $.ajax({
+        url: '/api/joue/' + game_id + "?x_o=" + start[0] + "&y_o=" + start[1] + "&x_a=" + arrive[0] + "&y_a=" + arrive[1],
+        data: {
+            format: 'json'
+
+        },
+        error: function () {
+            console.log("error");
+        },
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+        },
+        type: 'GET'
+    });
+
 }
