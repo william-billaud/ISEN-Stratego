@@ -219,4 +219,27 @@ class Tablier
         }
         return $res;
     }
+
+    public function verifiePlacementJoueurOK($joueur)
+    {
+        if($joueur == 1)
+        {
+            if(!$this->verifieOccurenceTypeCases(0,3))
+            {
+                return false;
+            }
+
+        }else if($joueur == -1)
+        {
+            if(!$this->verifieOccurenceTypeCases(6,9))
+            {
+                return false;
+            }
+        }else
+        {
+            return false;
+        }
+
+        return true;
+    }
 }
