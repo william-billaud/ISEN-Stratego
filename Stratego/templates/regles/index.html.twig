@@ -1,0 +1,178 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ controller_name }}!{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        ol.regles {
+
+            list-style-type: circle;
+            padding-left: 40px;
+        }
+
+        ol.pions {
+            list-style-type: circle;
+            padding-left: 150px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container flow-text">
+        <div class="row">
+            <div class="col s12">
+                <blockquote>
+                    <h3>Règles du jeu</h3>
+                </blockquote>
+                <ol class="regles">
+                    <li>
+                        <p>
+                            Le jeu de Stratégo se joue à 2 et utilise un tablier.
+                        </p>
+                    </li>
+                    <li>
+                        Joueurs: 2.
+                    </li>
+                    <li>
+                        <p>Pièces: 80 pièces, 40 bleues et 40 rouges.</p>
+                    </li>
+                    <li>
+                        <p>Chaque famille de pièces
+                            comprend les grades suivants (le chiffre entre parenthèses représente
+                            la valeur de cette pièce):
+                        </p>
+                    </li>
+                </ol>
+                <ol class="pions">
+                    <li>
+                        1 Maréchal de France (10)
+                    </li>
+                    <li>
+                        1 Général (9)
+                    </li>
+                    <li>
+                        2 Colonels (8)
+                    </li>
+                    <li>
+                        3 Lieutenant-Colonels (7)
+                    </li>
+                    <li>
+                        4 Capitaines (6)
+                    </li>
+                    <li>
+                        4 Lieutenants (5)
+                    </li>
+                    <li>
+                        4 Sergents (4)
+                    </li>
+                    <li>
+                        5 Démineurs (3)
+                    </li>
+                    <li>
+                        8 Soldats (2)
+                    </li>
+                    <li>
+                        1 espion (1)
+                    </li>
+                    <li>
+                        6 mines (Immobiles)
+                    </li>
+                    <li>
+                        1 drapeau (Immobile)
+                    </li>
+                </ol>
+                <ol class="regles">
+                    <li>
+                        <p>Tablier: Tablier de 100 cases, avec 2 lacs de 4 cases centrales.</p>
+                    </li>
+                    <li>
+                        <p>
+                            Objectif: Capturer le drapeau de l'ennemi ou faire en sorte que
+                            l'adversaire ne puisse plus effectuer de mouvements valides.
+                        </p>
+                    </li>
+                </ol>
+                <blockquote><b>Le jeu</b></blockquote>
+                <ol class="regles">
+                    <li>
+                        Le jeu se déroule à tour de rôle entre 2 joueurs. À chaque tour, le
+                        joueur devra déplacer une de ses pièces ou attaquer une pièce ennemie.
+                    </li>
+                </ol>
+                <blockquote><b>Formation Iniciale</b></blockquote>
+                <ol class="regles">
+                    <li>
+                        Avant de commencer, chaque joueur devra placer ses pièces sur le tablier
+                        pour constituer son armée, en distribuant stratégiquement celles-ci comme
+                        il le désire sur les 4 premières lignes du tablier.
+                    </li>
+                </ol>
+                <blockquote><b>Règles des Mouvements</b></blockquote>
+                <ol class="regles">
+                    <li>
+                        Les pièces se déplacent d'une case par une, horizontalement ou
+                        verticalement (Sauf les Soldats)
+                    </li>
+                    <li>
+                        Aucune pièce ne peut se déplacer en Diagonale, suater une autre pièce,
+                        ni se déplacer sur une case déjà occupée.
+                    </li>
+                    <li>
+                        Aucune pièce ne peut se déplacer sur les Lacs.
+                    </li>
+                    <li>
+                        Une seule pièce peut se déplacer à chaque tour
+                    </li>
+                    <li>
+                        Le Soldat (2) peut se déplacer sur plusirurs cases à la fois s'il le
+                        désire (ligne horizontale ou ligne verticale) sans jamais occuper une
+                        case déjà occupée. Il peut se déplacer et attaquer en même temps.
+                    </li>
+                    <li>
+                        Une pièce ne peut pas se déplacer 5 fois de suite sur 2 cases uniques
+                    </li>
+                </ol>
+                <p>
+                <blockquote><b>Règles d'Attaques </b></blockquote>
+                </p>
+                <ol class="regles">
+                    <li>
+                        Lorsqu'une pièce adverse rencontre une pièce ennemie (horizontalement
+                        ou verticalement), elles sont en position d'attaque.
+                    </li>
+                    <li>
+                        La pièce avec la valeur la plus faible sera capturée et retirée du
+                        tablier. Si la pièce gagnante est celle qui a attaqué en premier, elle
+                        prendra la place de la piece capturée sur le tablier. Si la pièce
+                        gagnante est en défensive, elle restera sur sa case.
+                    </li>
+                    <li>
+                        Lorsque 2 pièce de même valeur s'attaquent, les deux sont retirées du
+                        tablier.
+                    </li>
+                    <li>
+                        L'option d'attaquer est facultative.
+                    </li>
+                </ol>
+                <p>
+                <blockquote><b>Règles Spéciales d'Attaques</b></blockquote>
+                </p>
+                <ol class="regles">
+                    <li>
+                        Mines et Démineurs (3): Toutes les pièces qui attaquent une mine
+                        seront retirées du tablier, sauf le Démineur qui est le seul a pouvoir
+                        déminer et capturer la mine.
+                    </li>
+                </ol>
+                <ol class="regles">
+                    <li>
+                        Maréchal de France (10) et Espionne (1): Le Maréchal de France gagne
+                        toutes les autres pièces et peut seulement être capturé par
+                        l'Espionne. Attention: Si le Maréchal de France attaque l'Espionne,
+                        c'est lui qui gagnera.
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+{% endblock %}
