@@ -8,7 +8,7 @@
     box-shadow: 0 1px 0 0 #455a64 !important
 }
 
-#popup-message{
+#popup-message, #game-message{
     visibility: hidden;
     min-width: 250px; /* Set a default minimum width */
     margin-left: -125px; /* Divide value of min-width by 2 */
@@ -24,7 +24,7 @@
 }
 
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
-#popup-message.show {
+#popup-message.show, #game-message.show {
     visibility: visible; /* Show the snackbar */
 
     /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
