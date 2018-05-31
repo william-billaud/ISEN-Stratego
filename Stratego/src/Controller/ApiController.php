@@ -58,7 +58,7 @@ class ApiController extends Controller
             {
                 throw new \InvalidArgumentException("Ce n'est pas votre tour de jouer");
             }
-            if(!$partie->getTablier()->getTabValeurs($request->get("x_o"),$request->get("y_o"))->getProprietaire()==$partie->getTourJoueur() && $joueur!=0)
+            if($partie->getTablier()->getTabValeurs($request->get("x_o"),$request->get("y_o"))->getProprietaire()!=$partie->getTourJoueur() || $joueur==0)
             {
                 throw  new \InvalidArgumentException("Cette piece n'est pas à vous");
             }
