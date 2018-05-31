@@ -128,12 +128,13 @@ class ApiController extends Controller
 
     /**
      * @Route("/init/{id}",name="positionne pièces depart",requirements={"id": "\d+"}),
+     * @param Request $request
      * @param Partie|null $partie
-     * @Security("has_role('ROLE_USER')")
      * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @Security("has_role('ROLE_USER')")
      */
 
-    public function positionnePieceDepart(Request $request,Partie $partie)
+    public function positionnePieceDepart(Request $request,Partie $partie,EntityManagerInterface $em)
     {
         if($partie==null)
         {
@@ -151,7 +152,7 @@ class ApiController extends Controller
                 {
                     Pions::pionsFactory($partie->getTablier(),$x,$y,$value,1);
                 }else{
-                    throw new \InvalidArgumentException("Vous souhaitez possitionner des pions hors de votre coté");
+                    throw new \InvalidArgumentException("Vous souhaitez possitionner des pions hors de votre coté 1");
 
                 }
             }elseif ($y>5 && $y<10)
@@ -160,17 +161,18 @@ class ApiController extends Controller
                 {
                     Pions::pionsFactory($partie->getTablier(),$x,$y,$value,-1);
                 }else{
-                    throw new \InvalidArgumentException("Vous souhaitez possitionner des pions hors de votre coté");
+                    throw new \InvalidArgumentException("Vous souhaitez possitionner des pions hors de votre coté 2 ");
 
                 }
             }else{
-                throw new \InvalidArgumentException("Vous souhaitez possitionner des pions hors de votre coté");
+                throw new \InvalidArgumentException("Vous souhaitez possitionner des pions hors de votre coté 3");
             }
         }catch (\InvalidArgumentException $e)
         {
             $validite =false;
             $error=$e->getMessage();
         }
+        $em->flush();
         return $this->json(["error"=>$error,"valide"=>$validite,"tab"=>$partie->getTabjoueur($this->getUser())]);
 
 
