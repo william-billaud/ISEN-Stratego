@@ -1,8 +1,60 @@
 $(document).ready(function () {
+
+    var url = window.location.pathname;
+    var game_id = url.split("/")[3];
+    console.log(game_id);
+
+    var perso = $("#personnages");
+    for (var i = 0; i < 8; i++) {
+        perso.append("<div class=\"soldat\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+    }
+
+    for (i = 0; i < 5; i++) {
+        perso.append("<div class=\"demineur\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+    }
+
+    for (i = 0; i < 4; i++) {
+        perso.append("<div class=\"sergent\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+    }
+
+    for (i = 0; i < 4; i++) {
+        perso.append("<div class=\"lieutenant\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+    }
+
+
+    for (i = 0; i < 4; i++) {
+        perso.append("<div class=\"capitaine\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+    }
+
+    for (i = 0; i < 3; i++) {
+        perso.append("<div class=\"commandant\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+    }
+
+    for (i = 0; i < 2; i++) {
+        perso.append("<div class=\"colonel\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+    }
+
+    //General
+    perso.append("<div class=\"general\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+
+    //Drapeau
+    perso.append("<div class=\"drapeau\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+
+    //Espion
+    perso.append("<div class=\"espion\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+
+    //Marechal
+    perso.append("<div class=\"marechal\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+
+    for (i = 0; i < 6; i++) {
+        perso.append("<div class=\"bombe\" draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+    }
+
+
     console.log("Ajax");
 
     $.ajax({
-        url: '/api/init/5',
+        url: '/api/getTab/'+game_id,
         data: {
             format: 'json'
         },
