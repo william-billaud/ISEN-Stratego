@@ -3,33 +3,35 @@
 {% block title %}Hello {{ controller_name }}!{% endblock %}
 
 {% block body %}
-    <div class="col s12">
-        <div class="row">
-            <a class="btn waves-effect waves-light col s12 #90a4ae blue-grey lighten-2" id="jouer"
-               href="{{ path('defie_all') }}">Lancer une
-                partie
-                <i class="material-icons right">videogame_asset</i>
-            </a>
-        </div>
-        <h4>Joueurs : </h4>
-        {% for user in users %}
-            <div class="col s12">
-                <div class='card #03a9f4 light-blue'>
-                    <div class="card-content">
-                        <div class="left">
-                            <h6>{{ user.username|e }}</h6>
+    <div class="container">
+        <div class="col s12">
+            <div class="row">
+                <a class="btn waves-effect waves-light col s12 #90a4ae blue-grey lighten-2" id="jouer"
+                   href="{{ path('defie_all') }}">Lancer une
+                    partie
+                    <i class="material-icons right">videogame_asset</i>
+                </a>
+            </div>
+            <h4>Joueurs : </h4>
+            {% for user in users %}
+                <div class="col s12">
+                    <div class='card #03a9f4 light-blue'>
+                        <div class="card-content">
+                            <div class="left">
+                                <h6>{{ user.username|e }}</h6>
+                            </div>
+                            <div class="right">
+                                <a href="{{ path('lancement_partie',{'idJoueurDefie':user.id}) }}"
+                                   class="btn waves-effect waves-light #90a4ae blue-grey lighten-2" id="defier">Défier
+                                    <i class="material-icons right">directions_walk</i>
+                                </a>
+                            </div>
                         </div>
-                        <div class="right">
-                            <a href="{{ path('lancement_partie',{'idJoueurDefie':user.id}) }}"
-                               class="btn waves-effect waves-light #90a4ae blue-grey lighten-2" id="defier">Défier
-                                <i class="material-icons right">directions_walk</i>
-                            </a>
+                        <div class="card-action">
                         </div>
-                    </div>
-                    <div class="card-action">
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
