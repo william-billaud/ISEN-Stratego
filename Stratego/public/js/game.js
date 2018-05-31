@@ -3,6 +3,7 @@ var game_id;
 
 function afficheTableau(data)
 {
+    $('#board').empty();
     jQuery.each(data.tab, function () {
         var row = $("<div class='ligne'></div>");
         jQuery.each(this, function () {
@@ -73,21 +74,25 @@ $(document).ready(function () {
 
     console.log("Ajax");
 
-    $.ajax({
-        url: '/api/joue/'+game_id,
+    var ajaxGame= function (){
+        $.ajax({
+            url: '/api/joue/'+game_id,
             data: {
-            format: 'json'
-        },
-        error: function () {
-            console.log("error");
-        },
-        dataType: 'json',
-        success: function (data) {
-            afficheTableau(data);
-            $("#dernier-coup").empty().text("Dernière attaque :" + (data.derniereAttaque)+ "   " + ((data.peut_jouer) ? "C'est votre tour" : "Tour adverse"));
-        },
-        type: 'GET'
-    });
+                format: 'json'
+            },
+            error: function () {
+                console.log("error");
+            },
+            dataType: 'json',
+            success: function (data) {
+                afficheTableau(data);
+                $("#dernier-coup").empty().text("Dernière attaque :" + (data.derniereAttaque)+ "   " + ((data.peut_jouer) ? "C'est votre tour" : "Tour adverse"));
+            },
+            type: 'GET'
+        });
+    }
+    ajaxGame();
+    setInterval(ajaxGame,5000);
 });
 
 function allowDrop(ev) {
@@ -123,7 +128,6 @@ function drop(ev) {
         dataType: 'json',
         success: function (data) {
             console.log(data.tab);
-            $('#board').empty();
             afficheTableau(data);
             var _receiver = document.getElementById('ws-content-receiver');
             _receiver.className = "showUp";

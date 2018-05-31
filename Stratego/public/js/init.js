@@ -7,22 +7,27 @@ $(document).ready(function () {
     let url = window.location.pathname;
     game_id = url.split("/")[3];
     console.log(game_id);
-    $.ajax({
-        url: '/api/init/' + game_id,
-        data: {
-            format: 'json'
-        },
-        error: function () {
-            console.log("error");
-        },
-        dataType: 'json',
-        success: function (data) {
-            $('#board').empty();
-            afficheTableau(data);
-            personnagesRestants(data);
-        },
-        type: 'GET'
-    });
+    var ajaxInit= function () {
+        $.ajax({
+            url: '/api/init/' + game_id,
+            data: {
+                format: 'json'
+            },
+            error: function () {
+                console.log("error");
+            },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                $('#board').empty();
+                afficheTableau(data);
+                personnagesRestants(data);
+            },
+            type: 'GET'
+        });
+    };
+    ajaxInit();
+    setInterval(ajaxInit,5000);
 });
 
 function allowDrop(ev) {
@@ -61,7 +66,6 @@ function drop(ev) {
         dataType: 'json',
         success: function (data) {
             console.log(data.tab);
-            console.log("here"+data);
             $('#board').empty();
             afficheTableau(data);
             personnagesRestants(data);
