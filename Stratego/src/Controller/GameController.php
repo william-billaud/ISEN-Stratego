@@ -14,24 +14,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class GameController extends Controller
 {
-    /**
-     * !!!! Before testing this page, launch the ChatServerCommand with this command line in new terminal : " php bin/console f:a:c:m " !!!!
-     * @Security("has_role('ROLE_USER')")
-     * @Route("/game", name="game")
-     */
-    public function index(Partie $partie=null)
-    {
-        $channel=$partie->getJoueur1()."+".$partie->getJoueur2();
-        $user = $this->getUser();
-        $userName = $user->getUsername();
-
-        return $this->render('game/index.html.twig', [
-            'userName' => $userName,
-            'controller_name' => 'GameController',
-            "gameChannel"=>$channel,
-            'ws_url' => 'localhost:8080'
-        ]);
-    }
 
     /**
      * !!!! Before testing this page, launch the ChatServerCommand with this command line in new terminal : " php bin/console f:a:c:m " !!!!
@@ -40,6 +22,11 @@ class GameController extends Controller
      */
     public function gameAction(Partie $partie=null)
     {
+        if($partie==null)
+        {
+            $this->addFlash('error',"la partie n'existe pas");
+            return $this->redirectToRoute('base');
+        }
         $channel=$partie->getJoueur1()."+".$partie->getJoueur2();
         $user = $this->getUser();
         $userName = $user->getUsername();
@@ -59,6 +46,11 @@ class GameController extends Controller
      */
     public function initGameAction(Partie $partie=null)
     {
+        if($partie==null)
+        {
+            $this->addFlash('error',"la partie n'existe pas");
+            return $this->redirectToRoute('base');
+        }
         $channel=$partie->getJoueur1()."+".$partie->getJoueur2();
         $user = $this->getUser();
         $userName = $user->getUsername();
@@ -80,7 +72,6 @@ class GameController extends Controller
      */
     public function abandonner(Partie $partie=null,EntityManagerInterface $em)
     {
-
         if($partie==null)
         {
             $this->addFlash('error',"la partie n'existe pas");
