@@ -23,42 +23,55 @@ function afficheTableau(data)
             switch (this.value) {
                 case -1:
                     div.addClass("ennemi");
+                    div.attr("title", "ennemi");
                     break;
                 case 0:
                     div.addClass("drapeau");
+                    div.attr("title", "drapeau");
                     break;
                 case 1:
                     div.addClass("espion");
+                    div.attr("title", "espion");
                     break;
                 case 2:
                     div.addClass("soldat");
+                    div.attr("title", "soldat");
                     break;
                 case 3:
                     div.addClass("demineur");
+                    div.attr("title", "demineur");
                     break;
                 case 4:
                     div.addClass("sergent");
+                    div.attr("title", "sergent");
                     break;
                 case 5:
                     div.addClass("lieutenant");
+                    div.attr("title", "lieutenant");
                     break;
                 case 6:
                     div.addClass("capitaine");
+                    div.attr("title", "capitaine");
                     break;
                 case 7:
                     div.addClass("commandant");
+                    div.attr("title", "commandant");
                     break;
                 case 8:
                     div.addClass("colonel");
+                    div.attr("title", "colonel");
                     break;
                 case 9:
                     div.addClass("general");
+                    div.attr("title", "general");
                     break;
                 case 10:
                     div.addClass("marechal");
+                    div.attr("title", "marechal");
                     break;
                 case 11:
                     div.addClass("bombe");
+                    div.attr("title", "bombe");
                     break;
             }
             bg.append(div);

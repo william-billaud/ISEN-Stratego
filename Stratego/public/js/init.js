@@ -7,7 +7,7 @@ $(document).ready(function () {
     let url = window.location.pathname;
     game_id = url.split("/")[3];
     console.log(game_id);
-    var ajaxInit= function () {
+    var ajaxInit = function () {
         $.ajax({
             url: '/api/init/' + game_id,
             data: {
@@ -37,7 +37,7 @@ $(document).ready(function () {
         });
     };
     ajaxInit();
-    setInterval(ajaxInit,5000);
+    setInterval(ajaxInit, 5000);
 });
 
 function allowDrop(ev) {
@@ -58,14 +58,13 @@ function drop(ev) {
     ev.target.appendChild(document.getElementById(data));
     console.log(ev.target);
     let valPion = dragged.getAttribute("data-value");
-    var targetAttr=ev.target.getAttribute("id_herbes");
-    if(targetAttr==null)
-    {
-        targetAttr=ev.target.getAttribute("id");
+    var targetAttr = ev.target.getAttribute("id_herbes");
+    if (targetAttr == null) {
+        targetAttr = ev.target.getAttribute("id");
     }
     let coor = targetAttr.split('-', 2);
     $.ajax({
-        url: '/api/init/' + game_id +"?x="+coor[0]+"&y="+coor[1]+"&value="+valPion,
+        url: '/api/init/' + game_id + "?x=" + coor[0] + "&y=" + coor[1] + "&value=" + valPion,
         data: {
             format: 'json'
 
@@ -98,7 +97,7 @@ function drop(ev) {
 
 function personnagesRestants(data) {
     console.log(data.restante);
-    var perso= $("#personnages").empty();
+    var perso = $("#personnages").empty();
 
     var restante = data.restante;
 
@@ -107,7 +106,7 @@ function personnagesRestants(data) {
         class: 'row'
     });
     for (var i = 0; i < restante[2]; i++) {
-        soldats.append("<div data-value=\"2\" class=\"soldat sl1\" id='soldat" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+        soldats.append("<div data-value=\"2\" title='soldat' class=\"soldat sl1\" id='soldat" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
     }
     perso.append(soldats);
 
@@ -116,7 +115,7 @@ function personnagesRestants(data) {
         class: 'row'
     });
     for (i = 0; i < restante[3]; i++) {
-        demineurs.append("<div data-value=\"3\" class=\"demineur sl1\" id='demineur" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+        demineurs.append("<div data-value=\"3\" title='demineur' class=\"demineur sl1\" id='demineur" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
     }
     perso.append(demineurs);
 
@@ -125,7 +124,7 @@ function personnagesRestants(data) {
         class: 'row'
     });
     for (i = 0; i < restante[4]; i++) {
-        sergents.append("<div data-value=\"4\" class=\"sergent sl1\" id='sergent" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+        sergents.append("<div data-value=\"4\" title='sergent' class=\"sergent sl1\" id='sergent" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
     }
     perso.append(sergents);
 
@@ -134,7 +133,7 @@ function personnagesRestants(data) {
         class: 'row'
     });
     for (i = 0; i < restante[5]; i++) {
-        lieutenants.append("<div data-value=\"5\" class=\"lieutenant sl1\" id='lieutenant" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+        lieutenants.append("<div data-value=\"5\" title='lieutenant' class=\"lieutenant sl1\" id='lieutenant" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
     }
     perso.append(lieutenants);
 
@@ -143,7 +142,7 @@ function personnagesRestants(data) {
         class: 'row'
     });
     for (i = 0; i < restante[6]; i++) {
-        capitaines.append("<div data-value=\"6\" class=\"capitaine sl1\" id='capitaine" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+        capitaines.append("<div data-value=\"6\" title='capitaine' class=\"capitaine sl1\" id='capitaine" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
     }
     perso.append(capitaines);
 
@@ -152,7 +151,7 @@ function personnagesRestants(data) {
         class: 'row'
     });
     for (i = 0; i < restante[7]; i++) {
-        commandants.append("<div data-value=\"7\" class=\"commandant sl1\" id='commandant" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+        commandants.append("<div data-value=\"7\" title='commandant' class=\"commandant sl1\" id='commandant" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
     }
     perso.append(commandants);
 
@@ -161,7 +160,7 @@ function personnagesRestants(data) {
         class: 'row'
     });
     for (i = 0; i < restante[8]; i++) {
-        colonels.append("<div data-value=\"8\" class=\"colonel sl1\" id='colonel" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+        colonels.append("<div data-value=\"8\" title='colonel' class=\"colonel sl1\" id='colonel" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
     }
     perso.append(colonels);
 
@@ -170,22 +169,22 @@ function personnagesRestants(data) {
         class: 'row'
     });
     if (restante[9] !== 0) {
-        seuls.append("<div data-value=\"9\" class=\"general sl1\" id='general' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+        seuls.append("<div data-value=\"9\" title='general' class=\"general sl1\" id='general' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
     }
 
     if (restante[0] !== 0) {
         //Drapeau
-        seuls.append("<div data-value=\"0\" class=\"drapeau sl1\" id='drapeau' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+        seuls.append("<div data-value=\"0\" title='drapeau' class=\"drapeau sl1\" id='drapeau' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
     }
 
     if (restante[1] !== 0) {
         //Espion
-        seuls.append("<div data-value=\"1\" class=\"espion sl1\" id='espion' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+        seuls.append("<div data-value=\"1\" title='espion' class=\"espion sl1\" id='espion' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
     }
 
     if (restante[10] !== 0) {
         //Marechal
-        seuls.append("<div data-value=\"10\" class=\"marechal sl1\" id='marechal' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+        seuls.append("<div data-value=\"10\" title='marechal' class=\"marechal sl1\" id='marechal' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
     }
     perso.append(seuls);
 
@@ -195,15 +194,14 @@ function personnagesRestants(data) {
     });
     for (i = 0; i < restante[11]; i++) {
         console.log("here");
-        bombes.append("<div data-value=\"11\" class=\"bombe sl1\" id='bombe" + i +"' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
+        bombes.append("<div data-value=\"11\" title='mine' class=\"bombe sl1\" id='bombe" + i + "' draggable=\"true\" ondragstart=\"drag(event)\"></div>");
     }
     perso.append(bombes);
 
 }
 
 
-function afficheTableau(data)
-{
+function afficheTableau(data) {
     jQuery.each(data.tab, function () {
         var row = $("<div class='ligne'></div>");
         jQuery.each(this, function () {
@@ -212,17 +210,15 @@ function afficheTableau(data)
                 bg.addClass("eau");
             }
             else {
-                if(this.y>=0 && this.y<4 && data.side===1)
-                {
+                if (this.y >= 0 && this.y < 4 && data.side === 1) {
                     bg.addClass("herbe-border");
                     bg.attr("ondrop", "drop(event)");
                     bg.attr("ondragover", "allowDrop(event)");
-                }else if(this.y>=6 && this.y<10 && data.side===-1){
+                } else if (this.y >= 6 && this.y < 10 && data.side === -1) {
                     bg.addClass("herbe-border");
                     bg.attr("ondrop", "drop(event)");
                     bg.attr("ondragover", "allowDrop(event)");
-                }else
-                {
+                } else {
                     bg.addClass("herbe");
                 }
 
@@ -233,42 +229,55 @@ function afficheTableau(data)
             switch (this.value) {
                 case -1:
                     div.addClass("ennemi");
+                    div.attr("title", "ennemi");
                     break;
                 case 0:
                     div.addClass("drapeau");
+                    div.attr("title", "drapeau");
                     break;
                 case 1:
                     div.addClass("espion");
+                    div.attr("title", "espion");
                     break;
                 case 2:
                     div.addClass("soldat");
+                    div.attr("title", "soldat");
                     break;
                 case 3:
                     div.addClass("demineur");
+                    div.attr("title", "demineur");
                     break;
                 case 4:
                     div.addClass("sergent");
+                    div.attr("title", "sergent");
                     break;
                 case 5:
                     div.addClass("lieutenant");
+                    div.attr("title", "lieutenant");
                     break;
                 case 6:
                     div.addClass("capitaine");
+                    div.attr("title", "capitaine");
                     break;
                 case 7:
                     div.addClass("commandant");
+                    div.attr("title", "commandant");
                     break;
                 case 8:
                     div.addClass("colonel");
+                    div.attr("title", "colonel");
                     break;
                 case 9:
                     div.addClass("general");
+                    div.attr("title", "general");
                     break;
                 case 10:
                     div.addClass("marechal");
+                    div.attr("title", "marechal");
                     break;
                 case 11:
                     div.addClass("bombe");
+                    div.attr("title", "bombe");
                     break;
             }
             bg.append(div);
