@@ -22,6 +22,16 @@ $(document).ready(function () {
                 $('#board').empty();
                 afficheTableau(data);
                 personnagesRestants(data);
+                if(data.error!=null &&  !(data.error==="arguments manquants") )
+                {
+                    console.log(data.error);
+                    var _receiver = document.getElementById('ws-content-receiver');
+                    _receiver.className = "showUp";
+                    _receiver.innerHTML=data.error;
+                    setTimeout(function () {
+                        _receiver.className = _receiver.className.replace("showUp", "");
+                    }, 8000);
+                }
             },
             type: 'GET'
         });
@@ -69,6 +79,17 @@ function drop(ev) {
             $('#board').empty();
             afficheTableau(data);
             personnagesRestants(data);
+
+            console.log("error :"+data.error);
+            if(data.error!=null)
+            {
+                var _receiver = document.getElementById('ws-content-receiver');
+                _receiver.className = "showUp";
+                _receiver.innerHTML=data.error;
+                setTimeout(function () {
+                    _receiver.className = _receiver.className.replace("showUp", "");
+                }, 8000);
+            }
 
         },
         type: 'GET'

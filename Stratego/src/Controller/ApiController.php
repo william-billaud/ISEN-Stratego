@@ -36,9 +36,13 @@ class ApiController extends Controller
         }
         $joueur=$partie->getTourJoueur();
         try{
+            if($partie->getEtatPartie()==Partie::FINI)
+            {
+                throw new \InvalidArgumentException("Partie Fini : ".(($partie->getTourJoueur()==1)?$partie->getJoueur1():$partie->getJoueur2())." a gagné !");
+            }
             if($request->get("x_o")== null || $request->get("y_o")==null || $request->get("x_a")== null || $request->get("y_a")==null)
             {
-                throw new \InvalidArgumentException("Il manque des arguments!");
+                throw new \InvalidArgumentException("arguments manquants");
             }
             if(!$this->isGranted(PartieVoter::PeutJouer,$partie))
             {
@@ -78,30 +82,42 @@ class ApiController extends Controller
             return $this->json(["error"=>"la partie n'existe pas"]);
         }
         $validite=true;
-        $error="";
         $x=$request->get("x");
         $y=$request->get("y");
         $value=$request->get("value");
         $side=0;
+        $side=($this->isGranted(PartieVoter::InitJ1,$partie))?1:$side;
+        $side=($this->isGranted(PartieVoter::InitJ2,$partie))?-1:$side;
         try{
-            if($this->isGranted(PartieVoter::InitJ1,$partie))
+            if($partie->getEtatPartie()==Partie::FINI)
             {
-                $side=1;
+                throw new \InvalidArgumentException("Partie Fini : ".(($partie->getTourJoueur()==1)?$partie->getJoueur1():$partie->getJoueur2())." a gagné !");
+            }
+            if($partie->getEtatPartie()==Partie::ENCOUR)
+            {
+                throw new \InvalidArgumentException("Partie en cours !");
+            }
+            if($x== null || $y==null || $value==null)
+            {
+                throw new \InvalidArgumentException("arguments manquants");
+            }
+            if($side==1)
+            {
                 if($y>=0 && $y<4&& $y!=null)
                 {
                     Pions::pionsFactory($partie->getTablier(),$x,$y,$value,1);
                 }else{
-                    throw new \InvalidArgumentException("Vous souhaitez possitionner des pions hors de votre coté 1");
+                    throw new \InvalidArgumentException("Vous souhaitez positionner des pions hors de votre coté 1");
                 }
             }
-            elseif($this->isGranted(PartieVoter::InitJ2,$partie))
+            elseif($side==-1)
             {
                 $side =-1;
                 if($y>5 && $y<10)
                 {
                     Pions::pionsFactory($partie->getTablier(),$x,$y,$value,-1);
                 }else{
-                    throw new \InvalidArgumentException("Vous souhaitez possitionner des pions hors de votre coté 2 ");
+                    throw new \InvalidArgumentException("Vous souhaitez positionner des pions hors de votre coté 2 ");
 
                 }
             }else{

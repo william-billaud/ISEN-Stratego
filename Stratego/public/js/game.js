@@ -86,6 +86,16 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 afficheTableau(data);
+                if(!(data.error==="arguments manquants"))
+                {
+                    var _receiver = document.getElementById('ws-content-receiver');
+                    _receiver.className = "showUp";
+                    _receiver.innerHTML=data.error==null?"Coup Valide":data.error;
+                    setTimeout(function () {
+                        _receiver.className = _receiver.className.replace("showUp", "");
+                    }, 8000);
+
+                }
                 $("#dernier-coup").empty().text("Dernière attaque :" + (data.derniereAttaque)+ "   " + ((data.peut_jouer) ? "C'est votre tour" : "Tour adverse"));
             },
             type: 'GET'
