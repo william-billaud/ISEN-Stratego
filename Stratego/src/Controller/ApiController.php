@@ -77,6 +77,7 @@ class ApiController extends Controller
      */
     public function positionnePieceDepart(Request $request,Partie $partie,EntityManagerInterface $em)
     {
+        $error = null;
         if($partie==null)
         {
             return $this->json(["error"=>"la partie n'existe pas"]);

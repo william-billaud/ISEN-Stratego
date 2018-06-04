@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}Espace administrateur{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -11,7 +11,7 @@
                     <div class='card #03a9f4 light-blue'>
                         <div class="card-content">
                             <div class="left">
-                                <h6>{{ user.username|e }}</h6>
+                                <h7>{{ user.username|e }}</h7>
                             </div>
                             <div class="right">
                                 {% if user.roles == ["ROLE_USER"] %}

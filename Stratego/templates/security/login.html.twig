@@ -3,37 +3,40 @@
 {% block title %}Login{% endblock %}
 
 {% block body %}
+    <div class="container">
+        <h3>Connexion</h3>
 
-    <h3>Connexion</h3>
+        {% if error %}
+            <div class="card-panel red white-text">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
 
-    {% if error %}
-        <div class="card-panel red white-text">
-            {{ error.messageKey|trans(error.messageData, 'security') }}
+        <div class="row">
+            <form action="{{ path('app_login') }}" method="post" class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" id="username" name="_username" value="{{ last_username }}" class="validate"/>
+                        <label for="username">Username</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="password" id="password" name="_password" class="validate"/>
+                        <label for="password">Mot de passe</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <button class="btn waves-effect waves-light #90a4ae blue-grey lighten-2" type="submit"
+                            name="action">
+                        Connexion <i class="material-icons right">verified_user</i></button>
+                    <a class="btn waves-effect waves-light #90a4ae blue-grey lighten-2"
+                       href="{{ path('user_registration') }}">S'inscrire
+                        <i class="material-icons right">child_care</i>
+                    </a>
+                </div>
+            </form>
         </div>
-    {% endif %}
-
-    <div class="row">
-        <form action="{{ path('app_login') }}" method="post" class="col s12">
-            <div class="row">
-                <div class="input-field col s12">
-                    <input type="text" id="username" name="_username" value="{{ last_username }}" class="validate"/>
-                    <label for="username">Username</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input type="password" id="password" name="_password" class="validate"/>
-                    <label for="password">Mot de passe</label>
-                </div>
-            </div>
-
-            <div class="row">
-                <button class="btn waves-effect waves-light #90a4ae blue-grey lighten-2" type="submit" name="action">
-                    Connexion <i class="material-icons right">verified_user</i></button>
-                <a class="btn waves-effect waves-light #90a4ae blue-grey lighten-2" href="{{ path('user_registration') }}">S'inscrire
-                    <i class="material-icons right">child_care</i>
-                </a>
-            </div>
-        </form>
     </div>
 {% endblock %}

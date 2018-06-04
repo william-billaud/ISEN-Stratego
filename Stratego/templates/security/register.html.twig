@@ -3,20 +3,21 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
+    <div class="container">
+        <h3>Inscription</h3>
+        {{ form_start(form) }}
 
-    <h3>Inscription</h3>
-    {{ form_start(form) }}
+        <div class="col s12">
+            {{ form_row(form.username) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.password.first) }}
+            {{ form_row(form.password.second) }}
 
-    <div class="col s12">
-        {{ form_row(form.username) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.password.first) }}
-        {{ form_row(form.password.second) }}
-
-        <div class="row">
-            <button class="btn waves-effect waves-light #90a4ae blue-grey lighten-2" type="submit" name="action">
-                S'inscrire <i class="material-icons right">verified_user</i></button>
+            <div class="row">
+                <button class="btn waves-effect waves-light #90a4ae blue-grey lighten-2" type="submit" name="action">
+                    S'inscrire <i class="material-icons right">verified_user</i></button>
+            </div>
         </div>
+        {{ form_end(form) }}
     </div>
-    {{ form_end(form) }}
 {% endblock %}
